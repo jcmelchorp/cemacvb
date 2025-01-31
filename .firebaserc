@@ -1,4 +1,13 @@
 {
+  "targets": {
+    "cemacvb": {
+      "hosting": {
+        "cemacvb": [
+          "cemacvb"
+        ]
+      }
+    }
+  },
   "projects": {
     "default": "cemacvb"
   }
