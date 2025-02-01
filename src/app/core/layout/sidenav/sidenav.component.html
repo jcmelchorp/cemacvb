@@ -4,14 +4,20 @@
     [mode]="isHandset ? 'over':'side'" [opened]="false">
     <div role="navigation" class="column-layout space-between fx-flex-fill">
       <mat-nav-list>
-        <mat-list-item  [routerLink]="['/']" routerLinkActive="router-link-active" (click)="leftSidenav.close()">
+        @for (route of routes; track $index) {
+          <mat-list-item  [routerLink]="[route.link]" routerLinkActive="router-link-active" (click)="leftSidenav.close()">
+            <mat-icon  matListItemIcon >{{route.icon}}</mat-icon>
+            <span matListItemTitle >&nbsp; {{route.title}}</span>
+          </mat-list-item>
+        }
+        <!-- <mat-list-item  [routerLink]="['/']" routerLinkActive="router-link-active" (click)="leftSidenav.close()">
           <mat-icon  matListItemIcon >home</mat-icon>
           <span matListItemTitle >&nbsp; Inicio</span>
         </mat-list-item>
         <mat-list-item  [routerLink]="['editor']" routerLinkActive="router-link-active" (click)="leftSidenav.close()">
           <mat-icon  matListItemIcon>badge</mat-icon>
           <span matListItemTitle>&nbsp; Inscripciones</span>
-        </mat-list-item>
+        </mat-list-item> -->
       </mat-nav-list>
       <!-- <mat-nav-list > -->
        <!--  <mat-accordion>

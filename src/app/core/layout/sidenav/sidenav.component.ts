@@ -13,6 +13,7 @@ import { MainComponent } from "../main/main.component";
 import { FooterComponent } from "../footer/footer.component";
 import { MatLineModule } from "@angular/material/core";
 import { FlexLayoutModule } from "ngx-flexible-layout";
+import { Menu } from "../../models/menu.model";
 
 
 @Component({
@@ -47,6 +48,14 @@ export class SidenavComponent {
   sideNavState: boolean = false;
   loading = false;
 
+  routes:Menu=[ 
+    { title: 'Inicio', link:'/', icon: 'home' },
+    { title: 'Inscripciones', link:'/inscription', icon: 'badge' },
+    { title: 'Registrar cuenta', link:'/register', icon: 'badge' },  
+    { title: 'Iniciar Sesión', link:'/login', icon: 'badge' },  
+  ];
+    
+  
   constructor(
   ) {
     this.layoutService.toggleSidenavLeft.subscribe(() => {
