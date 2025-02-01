@@ -9,6 +9,11 @@
       <!-- <div class="app-name">RDS Spelling Bee</div>  -->
     </div> 
       <div fxLayout="row" fxLayoutAlign="space-evenly end" fxLayoutGap="20px">
+       @if (isAuthenticated()) {
+        <button mat-flat-button (click)="logOut()">Log out</button>
+       } @else {
+        <button mat-flat-button routerLink="['/login']" >Logout</button>
+       }
         <mat-icon class="rds-icon"  [matTooltip]="(isDarkTheme$|async)?'Modo oscuro':'Modo claro'" type="button"
         aria-label="Alternar tema" mat-icon-button
         (click)="toggleDarkTheme(isDarkTheme)">{{(isDarkTheme$|async)?'nightlight':'light_mode'}}</mat-icon>

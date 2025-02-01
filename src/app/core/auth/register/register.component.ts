@@ -6,22 +6,26 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [MatCardModule,ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule],
+  imports: [MatIconModule,MatCardModule,ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent {
+  hide = true;
+    formBuilder = inject(FormBuilder);
+    private _snackBar = inject(MatSnackBar);
   private _service = inject(AuthService);
-  private _fb = inject(FormBuilder);
    router = inject(Router);
    errorMessage!: string | null;
 
-  registerForm = this._fb.group(
+  registerForm = this.formBuilder.group(
     {
       email: new FormControl(''),
       password: new FormControl(''),
@@ -34,7 +38,7 @@ export class RegisterComponent {
       //.catch(() => /* some logic here */ );
   }
 
-  byForm(): void {
+  submit(): void {
     const { email, password } = this.registerForm.value;
     this._service
       .signup(email!, password!)

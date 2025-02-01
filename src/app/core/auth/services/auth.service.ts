@@ -3,15 +3,20 @@ import { Auth, authState, createUserWithEmailAndPassword, GoogleAuthProvider, id
 import { doc, Firestore, setDoc } from "@angular/fire/firestore";
 import { User } from "../models/user.model";
 
+export interface Credential {
+  email: string;
+  password: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private _firestore = inject(Firestore);
   private _auth = inject(Auth);
-
   authState$ = authState(this._auth);  // 👈👈👈
   user$ = user(this._auth);            // 👈👈👈
   idToken$ = idToken(this._auth);      // 👈👈👈
 
+  
 
   byGoogle(): Promise<User> {
     // you can simply change the Google for another provider here
@@ -28,12 +33,16 @@ export class AuthService {
     ).then((auth) => this._setUserData(auth));
   }
 
-  login(email: string, password: string): Promise<User> {
+  login(credential:Credential): Promise<User> {
     return signInWithEmailAndPassword(
       this._auth,
-      email.trim(),
-      password.trim()
+      credential.email.trim(),
+      credential.password.trim()
     ).then((auth) => this._setUserData(auth));
+  }
+
+  logOut(): Promise<void> {
+    return this._auth.signOut();
   }
 
   private _setUserData(auth: UserCredential): Promise<User> {

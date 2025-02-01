@@ -66,3 +66,14 @@ $light-theme: mat.define-light-theme(
     @include mat.elevation(8);
   }
 }
+
+.mat-form-field-appearance-fill .mat-mdc-form-field-infix {
+  padding-top: 20px !important;
+ // height: 10px !important;
+
+}
+.mat-form-field-appearance-fill .mat-mdc-floating-label {
+ // margin-top: -1vh !important;
+  // margin-bottom: -1vh !important;
+  height: -8px !important;
+}
