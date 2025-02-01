@@ -25,3 +25,8 @@
 .col:last-child {
   margin-right: 0;
 }
+
+.example-header-image {
+  background-image: url('/assets/images/logo.png');
+  background-size: cover;
+}

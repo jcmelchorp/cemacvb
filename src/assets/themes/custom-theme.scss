@@ -25,7 +25,7 @@ $dark-theme: mat.define-dark-theme(
     //Only include `typography` and `density` in the default dark theme.
     typography: $typography-config,
     //mat.define-typography-config($font-family: "Londrina Sketch"),
-    density: 2,
+    density: 0,
   )
 );
 

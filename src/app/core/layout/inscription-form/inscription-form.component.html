@@ -1,127 +1,144 @@
-<mat-card style="padding: 50px;margin: 50px;">
+<mat-stepper style="padding-right: 50px;padding-left: 50px;" linear #stepper>
+  <mat-step [editable]="isEditable">
+    <ng-template matStepLabel>Información importante</ng-template>
+    <ng-template matStepContent>
+      <mat-card>
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>CEMAC Veracruz-Boca del Río</mat-card-title>
+          <mat-card-subtitle>Antes de registrar tus datos, lee la siguiente información:</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>CEMAC, es una organización sin fines de lucro, en donde todos apoyamos y aportamos para que los objetivos
+            se cumplan. Estamos organizados por: Asamblea, Mesa Directiva, Comisión de expresidentes y Cuerpo de guías.
+            Todos los
+            que
+            participamos en cualquier área administrativa u operativa no recibimos emolumento alguno, lo hacemos con el
+            fin de
+            engrandecer a nuestro club y cumplir el objetivo de promover y difundir el excursionismo organizado y
+            deporte al aire
+            libre.</p>
+          <br>
+          <p>Te invitamos a leer nuestros Estatutos y la Carta Responsiva. Accede haciendo click aquí</p>
+          <br>
+          <p>Para agilizar el proceso y garantizar una inscripción exitosa, te recomendamos tener a la mano los
+            siguientes datos y
+            documentos en digital:</p>
+          <div style="padding-left: 40px;">
+            <ol>
+              <li>Identificación oficial (INE o pasaporte).</li>
+              <li>Fotografía en que se aprecie tu rostro, si gustas en actividad que te represente.</li>
+              <li>Numero de celular y corro electrónico.</li>
+              <li>Comprobante de pago.</li>
+            </ol>
+          </div>
+          <p>El depósito o trasferencia por concepto de inscripción ($250.00) y tres mensualidades ($125.00 mensual).
+            Harán un
+            total de $625.00 (Seiscientos Veinticinco Pesos 00/100 M.N). A la Cuenta del club:</p>
+          <br>
+          <div>CLUB DE EXPLORACIONES DE MEXICO, SEC. VER-BOCA DEL RIO, A.C</div>
+          <div>BBVA Bancomer, Suc.5277</div>
+          <div>Cuenta: 0196232884</div>
+          <div>Clabe: 012905001962328844</div>
+          <br>
 
-<p>CEMAC, es una organización sin fines de lucro, en donde todos apoyamos y aportamos para que los objetivos se cumplan.</p>
-<p>Estamos organizados por: Asamblea, Mesa Directiva, Comisión de expresidentes y Cuerpo de guías. Todos los que participamos en cualquier área administrativa u operativa no recibimos emolumento alguno, lo hacemos con el fin de engrandecer a nuestro club y cumplir el objetivo de promover y difundir el excursionismo organizado y deporte al aire libre.</p>
-<p>Te invitamos a leer nuestros Estatutos y la Carta Responsiva. Accede haciendo click aquí</p>
-<p>Completar el formulario de inscripción te llevará aproximadamente 5 minutos. Para agilizar el proceso y garantizar una inscripción exitosa, te recomendamos tener a la mano los siguientes datos y documentos en digital:</p>
+          <p>Dudas respecto a Tesorería por WhatsApp 22 91 32 70 83.</p>
 
-<ol>
-<li>Identificación oficial (INE o pasaporte).</li>
-<li>Fotografía en que se aprecie tu rostro, si gustas en actividad que te represente.</li>
-<li>Numero de celular y corro electrónico.</li>
-<li>Comprobante de pago.</li>
-</ol>
-
-<p> el depósito o trasferencia por concepto de inscripción ($250.00) y tres mensualidades ($125.00 mensual). Harán un total de $625.00 (Seiscientos Veinticinco Pesos 00/100 M.N). A la Cuenta del club:</p>
-<br>
-<div>CLUB DE EXPLORACIONES DE MEXICO, SEC. VER-BOCA DEL RIO, A.C</div>
-<div>BBVA Bancomer, Suc.5277</div>
-<div>Cuenta: 0196232884</div>
-<div>Clabe: 012905001962328844</div>
-<br>
-
-<p>Dudas respecto a Tesorería por WhatsApp 22 91 32 70 83.</p>
-
-<p>Continúa con el proceso ingresando tus datos completos en el FORMULARIO que se encuentra oprimiendo botón “SIGUIENTE” al final de esta página.</p>
-
-</mat-card>
-
-<form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
-  <mat-card class="shipping-card">
-    <mat-card-header>
-      <mat-card-title>Inscripción</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
+        </mat-card-content>
+        <mat-card-actions> <button mat-button matStepperNext>Siguiente</button> </mat-card-actions>
+      </mat-card>
+    </ng-template>
+  </mat-step>
+  <mat-step [stepControl]="addressForm" [editable]="isEditable">
+    <form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+      <ng-template matStepLabel>Datos personales</ng-template>
+      <ng-template matStepContent>
+        <div fxLayout="row" fxLayoutAlign="space-evenly stretch">
+          <mat-form-field fxFlex="0 1 calc(30%-5px)">
             <input matInput placeholder="Nombre(s)" formControlName="firstName">
             @if (addressForm.controls['firstName'].hasError('required')) {
-              <mat-error>First name is <strong>required</strong></mat-error>
+            <mat-error>First name is <strong>required</strong></mat-error>
             }
           </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width">
+          <mat-form-field fxFlex="0 1 calc(30%-5px)">
             <input matInput placeholder="Apellido(s)" formControlName="lastName">
             @if (addressForm.controls['lastName'].hasError('required')) {
-              <mat-error>Last name is <strong>required</strong></mat-error>
+            <mat-error>Last name is <strong>required</strong></mat-error>
             }
           </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
+
+          <mat-form-field fxFlex="0 1 calc(30%-5px)">
             <input matInput placeholder="Sobrenombre" formControlName="company">
           </mat-form-field>
         </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <textarea matInput placeholder="Dirección 1" formControlName="address"></textarea>
-            @if (addressForm.controls['address'].hasError('required')) {
-              <mat-error>Address is <strong>required</strong></mat-error>
-            }
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          @if (hasUnitNumber) {
-            <mat-form-field class="full-width">
-              <textarea matInput placeholder="Dirección 2" formControlName="address2"></textarea>
-            </mat-form-field>
-          } @else {
-            <button mat-button type="button" (click)="hasUnitNumber = !hasUnitNumber">
-              + Agrega una referencia más
-            </button>
+        <mat-form-field fxFlex>
+          <textarea matInput placeholder="Dirección 1" formControlName="address"></textarea>
+          @if (addressForm.controls['address'].hasError('required')) {
+          <mat-error>Address is <strong>required</strong></mat-error>
           }
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Ciudad" formControlName="city">
-            @if (addressForm.controls['city'].hasError('required')) {
-              <mat-error>City is <strong>required</strong></mat-error>
+        </mat-form-field>
+
+
+        @if (hasUnitNumber) {
+        <mat-form-field fxFlex>
+          <textarea matInput placeholder="Dirección 2" formControlName="address2"></textarea>
+        </mat-form-field>
+        } @else {
+        <button mat-button type="button" (click)="hasUnitNumber = !hasUnitNumber">
+          + Agrega una referencia más
+        </button>
+        }
+
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Ciudad" formControlName="city">
+          @if (addressForm.controls['city'].hasError('required')) {
+          <mat-error>City is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <mat-select placeholder="Estado" formControlName="state">
+            @for (state of states; track state) {
+            <mat-option [value]="state.abbreviation">{{ state.name }}</mat-option>
             }
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-select placeholder="Estado" formControlName="state">
-              @for (state of states; track state) {
-                <mat-option [value]="state.abbreviation">{{ state.name }}</mat-option>
-              }
-            </mat-select>
-            @if (addressForm.controls['state'].hasError('required')) {
-              <mat-error>State is <strong>required</strong></mat-error>
-            }
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput #postalCode maxlength="5" placeholder="Código postal" type="number" formControlName="postalCode">
-            <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-radio-group formControlName="shipping">
-            <mat-radio-button value="free">Hombre</mat-radio-button>
-            <mat-radio-button value="priority">Mujer</mat-radio-button>
-            <mat-radio-button value="nextday">No específico</mat-radio-button>
-          </mat-radio-group>
-        </div>
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">Enviar</button>
-    </mat-card-actions>
-  </mat-card>
-</form>
+          </mat-select>
+          @if (addressForm.controls['state'].hasError('required')) {
+          <mat-error>State is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input matInput #postalCode maxlength="5" placeholder="Código postal" type="number"
+            formControlName="postalCode">
+          <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+        </mat-form-field>
+
+        <mat-radio-group formControlName="shipping">
+          <mat-radio-button value="free">Hombre</mat-radio-button>
+          <mat-radio-button value="priority">Mujer</mat-radio-button>
+          <mat-radio-button value="nextday">No específico</mat-radio-button>
+        </mat-radio-group>
+
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-raised-button color="primary" type="submit">Enviar</button>
+      </ng-template>
+    </form>
+  </mat-step>
+  <mat-step [editable]="isEditable">
+    <ng-template matStepLabel>Contacto</ng-template>
+    <ng-template matStepContent>
+      <!-- Información de contacto -->
+      <!-- Cómo te enteraste -->
+      <!-- Información de emergencias -->
+      <button mat-button matStepperPrevious>Back</button>
+    </ng-template>
+  </mat-step>
+  <mat-step [editable]="isEditable">
+    <ng-template matStepLabel>Done</ng-template>
+    <p>Para enviar tus datos al proceso de selección</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-stepper>

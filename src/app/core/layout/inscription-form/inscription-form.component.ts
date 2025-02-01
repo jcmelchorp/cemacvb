@@ -7,6 +7,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 
+import { MatStepperModule } from '@angular/material/stepper';
+
 
 @Component({
   selector: 'app-inscription-form',
@@ -19,6 +21,7 @@ import { MatCardModule } from '@angular/material/card';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
+    MatStepperModule,
     ReactiveFormsModule
   ]
 })
@@ -38,6 +41,7 @@ export class InscriptionFormComponent {
     shipping: ['free', Validators.required]
   });
 
+  isEditable:boolean=true;
   hasUnitNumber = false;
 
   states = [
