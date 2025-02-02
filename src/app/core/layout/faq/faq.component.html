@@ -1,0 +1,17 @@
+<mat-accordion style="padding: 20px;">
+    @for (info of questions; track $index) {
+    <mat-expansion-panel (opened)="panelOpenState=true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header fxLayout="row" fxLayoutAlign="space-around center">
+            <mat-panel-title style="margin: 20px;">
+                {{info.question}}
+            </mat-panel-title>
+            <mat-panel-description>
+                {{info.description}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-card>
+            {{info.answer}}
+        </mat-card>
+    </mat-expansion-panel>
+    }
+</mat-accordion>

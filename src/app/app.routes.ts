@@ -46,6 +46,18 @@ export const routes: Routes = [
                 loadComponent: () => import('./core/layout/inscription-form/inscription-form.component').then(m => m.InscriptionFormComponent),
 
             },
+            {
+                path: 'faq',
+                canActivate: [publicGuard],
+                loadComponent: () => import('./core/layout/faq/faq.component').then(m => m.FaqComponent),
+
+            },
+            {
+                path: 'home',
+                canActivate: [authGuard],
+                loadComponent: () => import('./core/layout/home/home.component').then(m => m.HomeComponent),
+
+            },
         ],
     },
     {

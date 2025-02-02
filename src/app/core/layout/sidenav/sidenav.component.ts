@@ -53,6 +53,7 @@ export class SidenavComponent {
     { title: 'Inscripciones', link: '/inscription', icon: 'person_add' },
     { title: 'Registrar cuenta', link:'/auth/register', icon: 'badge' },  
     { title: 'Iniciar Sesión', link:'/auth/login', icon: 'login' },  
+    { title: 'Preguntas', link:'/faq', icon: 'question_mark' },
   ];
     
   
