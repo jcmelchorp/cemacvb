@@ -50,8 +50,6 @@
     </div>
   </mat-sidenav>
   <mat-sidenav-content [@onMainContentChange]="(onSideNavChange && !isHandset) ? 'open': 'close'" fxLayout="column" fxLayoutAlign="stretch stretch">
-    
     <app-main-component class="main-content" ></app-main-component>
-   <app-footer></app-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

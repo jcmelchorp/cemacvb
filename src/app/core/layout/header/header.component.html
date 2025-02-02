@@ -10,17 +10,23 @@
     </div> 
       <div fxLayout="row" fxLayoutAlign="space-evenly end" fxLayoutGap="20px">
        @if (isAuthenticated()) {
-        <button mat-flat-button (click)="logOut()">Log out</button>
+        <button mat-icon-button (click)="logOut()">
+          <mat-icon class="rds-icon" matTooltip="Cerrar sesión">logout</mat-icon>
+         </button>
        } @else {
-        <button mat-flat-button routerLink="['/login']" >Logout</button>
+        <button mat-icon-button routerLink="['/login']" >
+          <mat-icon class="rds-icon" matTooltip="Iniciar sesión">login</mat-icon> 
+        </button>
        }
-        <mat-icon class="rds-icon"  [matTooltip]="(isDarkTheme$|async)?'Modo oscuro':'Modo claro'" type="button"
-        aria-label="Alternar tema" mat-icon-button
-        (click)="toggleDarkTheme(isDarkTheme)">{{(isDarkTheme$|async)?'nightlight':'light_mode'}}</mat-icon>
+        <button type="button" mat-icon-button (click)="toggleDarkTheme(isDarkTheme)">
+       <mat-icon class="rds-icon"  [matTooltip]="(isDarkTheme$|async)?'Modo oscuro':'Modo claro'"  aria-label="Alternar tema">{{(isDarkTheme$|async)?'nightlight':'light_mode'}}</mat-icon>
+      </button>
       <!-- <span style="font-size:50%">{{ (isDarkTheme$|async)?'on':'off' }}</span> -->
       <!-- <button > -->
-      <mat-icon class="rds-icon" matTooltip="Pantalla completa" type="button" mat-icon-button
-        onclick="var el = document.querySelector('body'); el.requestFullscreen();">fullscreen</mat-icon> 
+        <button type="button" mat-icon-button onclick="var el = document.querySelector('body'); el.requestFullscreen();">
+          <mat-icon class="rds-icon" matTooltip="Pantalla completa">fullscreen</mat-icon> 
+        </button>
+
       </div>
   </mat-toolbar-row>
   </mat-toolbar>

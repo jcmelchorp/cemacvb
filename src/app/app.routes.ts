@@ -8,10 +8,10 @@ import {
     redirectLoggedInTo,
 } from '@angular/fire/auth-guard';
 import { authGuard, publicGuard } from './core/auth/guards/auth.guard';
+import { NotFoundComponent } from './core/layout/not-found/not-found.component';
+import { LandingComponent } from './core/layout/landing/landing.component';
 
-const redirectUnauthorizedToLogin = () =>
-    redirectUnauthorizedTo(['/login']); //if not logged in, redirect to login page
-const redirectLoggedInToHome = () => redirectLoggedInTo(['/register']); //if logged in, redirect to tabs page
+
 
 
 export const routes: Routes = [
@@ -21,7 +21,8 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                loadComponent: () => import('./core/layout/home/home.component').then(m => m.HomeComponent)
+                // loadComponent: () => import('./core/layout/landing/landing.component').then(m => m.LandingComponent)
+                component:LandingComponent
             },
             {
                 path: 'auth',
@@ -47,5 +48,9 @@ export const routes: Routes = [
             },
         ],
     },
-    { path: '**', redirectTo: '/auth/login', pathMatch: 'full' }
+    {
+        path: '404',
+        component: NotFoundComponent,
+      },
+    { path: '**', redirectTo: '/404', pathMatch: 'full' }
 ];

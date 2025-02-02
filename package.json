@@ -11,7 +11,8 @@
     "clean": "rm -rf ./node_modules yarn.lock package-lock.json"
   },
   "browserslist": [
-    "defaults", "iOS >= 13.2"
+    "defaults",
+    "iOS >= 13.2"
   ],
   "private": true,
   "dependencies": {
@@ -25,6 +26,7 @@
     "@angular/material": "^17.3.10",
     "@angular/platform-browser": "^17.3.10",
     "@angular/platform-browser-dynamic": "^17.3.10",
+    "@angular/pwa": "^17.3.10",
     "@angular/router": "^17.3.10",
     "angular-animations": "^0.11.0",
     "ngx-flexible-layout": "^17.0.4",

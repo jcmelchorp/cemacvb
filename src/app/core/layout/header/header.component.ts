@@ -18,7 +18,7 @@ import { AuthService } from "../../auth/services/auth.service";
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss',
     standalone: true,
-    imports: [NgIf,AsyncPipe, MatIconModule, MatToolbarModule, MatButtonModule, MatTooltipModule, AsyncPipe, FlexLayoutModule],
+    imports: [AsyncPipe, MatIconModule, MatToolbarModule, MatButtonModule, MatTooltipModule, AsyncPipe, FlexLayoutModule],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 
