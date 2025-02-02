@@ -1,5 +1,5 @@
 <mat-stepper style="padding-right: 50px;padding-left: 50px;" linear #stepper>
-  <mat-step [editable]="isEditable">
+  <mat-step [stepControl]="introForm" [editable]="isEditable">
     <ng-template matStepLabel>Información importante</ng-template>
     <ng-template matStepContent>
       <mat-card>
@@ -44,88 +44,119 @@
 
           <p>Dudas respecto a Tesorería por WhatsApp 22 91 32 70 83.</p>
 
+          Para continuar, ¿cuentas con todos los requisitos?
+          <form [formGroup]="introForm" novalidate>
+            <mat-radio-group class="radio-column" required formControlName="reqState">
+              @for (state of reqStates; track state) {
+              <mat-radio-button class="example-radio-button" [value]="state.key">{{state.value}}</mat-radio-button>
+              }
+            </mat-radio-group>
+          </form>
         </mat-card-content>
-        <mat-card-actions> <button mat-button matStepperNext>Siguiente</button> </mat-card-actions>
+        <mat-card-actions>
+          <button mat-button matStepperNext type="submit" [disabled]="introForm.controls['reqState'].value=='VISIT'||
+          introForm.controls['reqState'].value=='INCOMPLETE'||
+          introForm.controls['reqState'].value==null">Siguiente</button>
+        </mat-card-actions>
       </mat-card>
     </ng-template>
   </mat-step>
-  <mat-step [stepControl]="addressForm" [editable]="isEditable">
-    <form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-step [stepControl]="addressForm" [editable]="true">
+    <form [formGroup]="addressForm" novalidate (submit)="onSubmit()">
       <ng-template matStepLabel>Datos personales</ng-template>
       <ng-template matStepContent>
-        <div fxLayout="row" fxLayoutAlign="space-evenly stretch">
-          <mat-form-field fxFlex="0 1 calc(30%-5px)">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Datos personales</mat-card-title>
+            <img mat-card-sm-image src="/assets/images/ine.png">
+            <mat-card-subtitle>
+              Escribe tus datos tal y como aparecen en tu identificación oficial con fotografía.
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-form-field>
             <input matInput placeholder="Nombre(s)" formControlName="firstName">
             @if (addressForm.controls['firstName'].hasError('required')) {
             <mat-error>First name is <strong>required</strong></mat-error>
             }
           </mat-form-field>
-          <mat-form-field fxFlex="0 1 calc(30%-5px)">
+          <mat-form-field>
             <input matInput placeholder="Apellido(s)" formControlName="lastName">
             @if (addressForm.controls['lastName'].hasError('required')) {
             <mat-error>Last name is <strong>required</strong></mat-error>
             }
           </mat-form-field>
 
-          <mat-form-field fxFlex="0 1 calc(30%-5px)">
-            <input matInput placeholder="Sobrenombre" formControlName="company">
+          <mat-form-field>
+            <input matInput placeholder="Sobrenombre" formControlName="sobrenombre">
           </mat-form-field>
-        </div>
-        <mat-form-field fxFlex>
-          <textarea matInput placeholder="Dirección 1" formControlName="address"></textarea>
-          @if (addressForm.controls['address'].hasError('required')) {
-          <mat-error>Address is <strong>required</strong></mat-error>
-          }
-        </mat-form-field>
-
-
-        @if (hasUnitNumber) {
-        <mat-form-field fxFlex>
-          <textarea matInput placeholder="Dirección 2" formControlName="address2"></textarea>
-        </mat-form-field>
-        } @else {
-        <button mat-button type="button" (click)="hasUnitNumber = !hasUnitNumber">
-          + Agrega una referencia más
-        </button>
-        }
-
-        <mat-form-field fxFlex>
-          <input matInput placeholder="Ciudad" formControlName="city">
-          @if (addressForm.controls['city'].hasError('required')) {
-          <mat-error>City is <strong>required</strong></mat-error>
-          }
-        </mat-form-field>
-
-        <mat-form-field fxFlex>
-          <mat-select placeholder="Estado" formControlName="state">
-            @for (state of states; track state) {
-            <mat-option [value]="state.abbreviation">{{ state.name }}</mat-option>
+          <mat-form-field>
+            <textarea matInput placeholder="Dirección 1" formControlName="address"></textarea>
+            @if (addressForm.controls['address'].hasError('required')) {
+            <mat-error>Address is <strong>required</strong></mat-error>
             }
-          </mat-select>
-          @if (addressForm.controls['state'].hasError('required')) {
-          <mat-error>State is <strong>required</strong></mat-error>
+          </mat-form-field>
+
+
+          @if (hasUnitNumber) {
+          <mat-form-field>
+            <textarea matInput placeholder="Dirección 2" formControlName="address2"></textarea>
+          </mat-form-field>
+          } @else {
+          <button mat-button type="button" (click)="hasUnitNumber = !hasUnitNumber">
+            + Agrega una referencia más
+          </button>
           }
-        </mat-form-field>
 
-        <mat-form-field fxFlex>
-          <input matInput #postalCode maxlength="5" placeholder="Código postal" type="number"
-            formControlName="postalCode">
-          <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-        </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Ciudad" formControlName="city">
+            @if (addressForm.controls['city'].hasError('required')) {
+            <mat-error>City is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
 
-        <mat-radio-group formControlName="shipping">
-          <mat-radio-button value="free">Hombre</mat-radio-button>
-          <mat-radio-button value="priority">Mujer</mat-radio-button>
-          <mat-radio-button value="nextday">No específico</mat-radio-button>
-        </mat-radio-group>
+          <mat-form-field>
+            <mat-select placeholder="Estado" formControlName="estado">
+              @for (estado of estados; track estado) {
+              <mat-option [value]="estado.key">{{ estado.value }}</mat-option>
+              }
+            </mat-select>
+            @if (addressForm.controls['estado'].hasError('required')) {
+            <mat-error>State is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
 
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-raised-button color="primary" type="submit">Enviar</button>
+          <mat-form-field>
+            <mat-select placeholder="Municipio" formControlName="mi_municipio">
+              @for (muni of (selectedMunis|async); track muni) {
+              <mat-option [value]="muni">{{ muni }}</mat-option>
+              }
+            </mat-select>
+            @if (addressForm.controls['estado'].hasError('required')) {
+            <mat-error>State is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+          
+          <mat-form-field>
+            <input matInput #postalCode maxlength="5" placeholder="Código postal" type="number"
+              formControlName="postalCode">
+            <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+          </mat-form-field>
+
+          <mat-radio-group formControlName="genero">
+            <mat-radio-button value="H">Hombre</mat-radio-button>
+            <mat-radio-button value="M">Mujer</mat-radio-button>
+            <mat-radio-button value="T">No específico</mat-radio-button>
+          </mat-radio-group>
+          <mat-card-actions>
+            <button mat-button matStepperNext [disabled]="addressForm.invalid" type="submit">Enviar</button>
+            <!-- <button mat-button [disabled]="addressForm" matStepperNext>Siguiente</button> -->
+          </mat-card-actions>
+        </mat-card>
       </ng-template>
     </form>
   </mat-step>
   <mat-step [editable]="isEditable">
-    <ng-template matStepLabel>Contacto</ng-template>
+    <ng-template matStepLabel>Información de contacto</ng-template>
     <ng-template matStepContent>
       <!-- Información de contacto -->
       <!-- Cómo te enteraste -->

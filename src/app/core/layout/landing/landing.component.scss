@@ -1,7 +1,4 @@
 
-:root{
---color: #333; 
-}
 
 div#content {
   
@@ -14,7 +11,7 @@ div#content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: stretch;
+  justify-content: center;
   background: linear-gradient(0deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.0)), url(/assets/images/hoyo.jpg);
   // background-image: url(/assets/images/hoyo.jpg);
   background-size: cover;
@@ -31,7 +28,7 @@ h1 {
 }
 
 p {
-  max-width: 52ch;
+  max-width: 75%;
   line-height: 1.5;
   padding: 1em;
 }
@@ -103,11 +100,11 @@ h3 {
 }
 
 .img-third {
-  background-image: url(https://images.unsplash.com/photo-1632853073412-782bf0279d65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80);
+  background-image: url(/assets/images/noche.jpg);
 }
 
 .img-fourth {
-  background-image: url(https://images.unsplash.com/photo-1522163182402-834f871fd851?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1606&q=80);
+  background-image: url(/assets/images/oso.jpg);
 }
 
 .img-fifth {
@@ -115,7 +112,7 @@ h3 {
 }
 
 .img-sixth {
-  background-image: url(https://images.unsplash.com/photo-1632853073412-782bf0279d65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80);
+  background-image: url(/assets/images/kayak2.jpg);
 }
 .second {
   flex-direction: row;

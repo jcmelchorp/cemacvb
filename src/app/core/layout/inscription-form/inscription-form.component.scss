@@ -2,6 +2,13 @@
   width: 100%;
 }
 
+.radio-column {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  align-items: flex-start;
+}
+
 .shipping-card {
   min-width: 120px;
   margin: 20px auto;

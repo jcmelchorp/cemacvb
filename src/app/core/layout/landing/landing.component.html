@@ -1,21 +1,20 @@
-<div class="container">
+<div class="container mat-typography">
     <div id="content">
     <img src="/assets/images/logo.png" height="220px" class="img-fluid" alt="Login Image">
   </div>
     <h1>CEMAC Veracruz - Boca del Río</h1>
-    <p>Conoce y comparte con nosotros nuevas aventuras.</p>
+    <h3>Conoce y comparte con nosotros nuevas aventuras.</h3>
   </div>
   
-  <div class="blank">
+  <div class="blank mat-typography">
     <div style="display: flex;align-items: center;justify-content: center;">
-      
-    <p>
+    <p style="font-size: large;">
     “CEMAC, es un estilo de vida, donde cada fin de semana puedes conocer lugares maravillosos, disfrutar de actividades como bicicleta de montaña, kayak, buceo, cañonismo, escalada, media y alta montaña espeleología, rafting y ecoturismo ”.
   </p>
 </div>
   </div>
   
-  <div class="container second">
+  <div class="container second mat-typography">
     <div class="item">
       <div class="img img-first"></div>
       <div class="card">
@@ -66,4 +65,10 @@
     </div>
   </div>
   
-  <div class="blank"></div>
+  <div class="blank mat-typography">
+    <h1>Socio CEMAC</h1>
+    <p>Ser socio, te lleva a un mundo de posibilidades de aventuras con la naturaleza.</p>
+    <p>En un marco de respeto a nuestros estatutos y del medio ambiente, fomentamos la unidad y la convivencia sana entre los participantes. Siempre estarán abiertas las posibilidades de crecimiento dentro de la organización, pasando de reta a guía y como instructor, compartiendo tus conocimientos y experiencias en la formación de nuevos socios.</p>
+    <button [@hueButton]="hueBtnState" (@hueButton.done)="hueBtnState = !hueBtnState" mat-raised-button  routerLink="/inscription">Inscríbete</button>
+  </div>
+
