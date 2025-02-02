@@ -1,8 +1,3 @@
-
-
-div#content {
-  
-}
 .container {
   text-align: center;
   color: var(--color);
@@ -22,15 +17,28 @@ div#content {
   // background-blend-mode: overlay;
 }
 
+h1,h2,h3 {
+  font-family: 'Montserrat';
+  margin-top: 20px;
+}
 h1 {
+  font-weight: 900;
+  font-size: calc(3rem + 1vw);
+}
+
+h2 {
   font-weight: 700;
-  font-size: 3rem;
+  font-size: calc(2rem + 1vw);
+}
+
+h3 {
+  font-weight: 500;
+  font-size: calc(1rem + 1vw);
 }
 
 p {
-  max-width: 75%;
-  line-height: 1.5;
-  padding: 1em;
+  font-size: 1.5rem;
+  line-height: 1.2em;
 }
 
 a {
@@ -49,41 +57,42 @@ a {
 .blank,
 .other {
   width: 100%;
-  min-height: 40vh;
+  min-height: 20vh;
   background-color: var(--color);
+  p {
+    font-size: 1.5rem;
+    max-width: 75%;
+    line-height: 2em;
+    padding: 2rem;
+  }
 }
 
 .second {
   background-image:url(/assets/images/ave.jpg);
   background-attachment: fixed;
-  //height: 1400px;
+  padding: 20px;
 }
 
-h3 {
-  font-weight: 700;
-  font-size: 1.6rem;
-  margin-top: 1em;
-}
 
 .card > a {
-  margin-bottom: 2em;
+  margin-bottom: 0em;
 }
 
 .item {
   display: flex;
-  max-width: 320px;
+  width: 250px;
   background-color: white;;
   flex-direction: column;
   align-items: center;
   border-radius: .5em;
-  -webkit-box-shadow: 0px 29px 38px -15px rgba(0,0,0,0.43);
-  -moz-box-shadow: 0px 29px 38px -15px rgba(0,0,0,0.43);
-  box-shadow: 0px 29px 38px -15px rgba(0,0,0,0.43);
+  -webkit-box-shadow: 0px 29px 38px -15px rgba(0,0,0,0.9);
+  -moz-box-shadow: 0px 29px 38px -15px rgba(0,0,0,0.9);
+  box-shadow: 0px 29px 38px -15px rgba(0,0,0,0.9);
 }
 
 .img {
-  width: 90%;
-  height: 200px;
+  width: 95%;
+  height: 250px;
   background-color: lightgrey;
   background-size: cover;
   background-position: center;
@@ -92,7 +101,7 @@ h3 {
 }
 
 .img-first {
-  background-image: url(https://images.unsplash.com/photo-1522163182402-834f871fd851?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1606&q=80);
+  background-image: url(/assets/images/escalada.webp);
 }
 
 .img-second {
@@ -108,7 +117,7 @@ h3 {
 }
 
 .img-fifth {
-  background-image: url(https://images.unsplash.com/photo-1628746404106-4d3843b231b3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F2aW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60);
+  background-image: url(/assets/images/bici.webp);
 }
 
 .img-sixth {
@@ -116,5 +125,5 @@ h3 {
 }
 .second {
   flex-direction: row;
-  gap: 1.6em;
+  gap: 20px;
 }
