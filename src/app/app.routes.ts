@@ -58,6 +58,11 @@ export const routes: Routes = [
                 loadComponent: () => import('./core/layout/home/home.component').then(m => m.HomeComponent),
 
             },
+            {
+                path: 'about',
+                canActivate: [publicGuard],
+                loadComponent: () => import('./core/layout/about/about.component').then(m => m.AboutComponent),
+            },
         ],
     },
     {
