@@ -6,6 +6,7 @@ import {
   Validators,
   FormsModule,
   AbstractControl,
+  FormGroup,
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,7 +15,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 
 import { MatStepperModule } from '@angular/material/stepper';
-import { AsyncPipe, JsonPipe, KeyValuePipe } from '@angular/common';
+import { AsyncPipe, JsonPipe, KeyValuePipe, TitleCasePipe } from '@angular/common';
 import { BehaviorSubject, map } from 'rxjs';
 import FileUploadComponent from './file-upload.component';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -27,7 +28,8 @@ import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
   standalone: true,
   imports: [
     AsyncPipe,
-    JsonPipe,
+    TitleCasePipe,
+    KeyValuePipe,
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,
@@ -43,47 +45,29 @@ import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 })
 export class InscriptionFormComponent {
   private fb = inject(FormBuilder);
-  reqStates: any[] = [
-    {
-      key: 'VISIT',
-      value: 'NO tengo los requisitos, pero quiero más información.',
-    },
-    {
-      key: 'INCOMPLETE',
-      value: 'NO tengo TODOS los requisitos en este momento.',
-    },
-    {
-      key: 'ALMOST',
-      value:
-        'SI tengo TODOS los requisitos a la mano, pero NO en forma digital.',
-    },
-    {
-      key: 'READY',
-      value: 'SI tengo TODOS los requisitos a la mano y en forma digital.',
-    },
-  ];
+
   /** Returns a FormArray with the name 'formArray'. */
   get formArray(): AbstractControl | null {
     return this.formGroup.get('formArray');
   }
-  formGroup = this.fb.group({
+  formGroup:FormGroup = this.fb.group({
     formArray: this.fb.array([
       this.fb.group({
         reqState: [null, Validators.required],
       }),
       this.fb.group({
-        sobrenombre: null,
-        nombres: [null, Validators.required],
-        apellido1: [null, Validators.required],
-        apellido2: [null, Validators.required],
-        address1: [null, Validators.required],
-        address2: null,
-        ciudad: [null, Validators.required],
-        municipio: [null, Validators.required],
-        estado: [null, Validators.required],
-        pais: [null, Validators.required],
-        postalCode: [null, Validators.required],
-        genero: [null, Validators.required],
+        _00sobrenombre: null,
+        _01nombres: [null, Validators.required],
+        _02apellido1: [null, Validators.required],
+        _03apellido2: [null, Validators.required],
+        _04address1: [null, Validators.required],
+        _05address2: null,
+        _06ciudad: [null, Validators.required],
+        _07municipio: [null, Validators.required],
+        _08estado: [null, Validators.required],
+        _09pais: [null, Validators.required],
+        _10postalCode: [null, Validators.required],
+        _11genero: [null, Validators.required],
       }),
       this.fb.group({
         ine: [null, Validators.required],
@@ -103,9 +87,9 @@ export class InscriptionFormComponent {
   isEditable: boolean = false;
   hasUnitNumber = false;
   base64textString: BehaviorSubject<string> = new BehaviorSubject('');
-  imageSource1: BehaviorSubject<any> = new BehaviorSubject({});
-  imageSource2: BehaviorSubject<any> = new BehaviorSubject({});
-  imageSource3: BehaviorSubject<any> = new BehaviorSubject({});
+  imageSource1: BehaviorSubject<any> = new BehaviorSubject('');
+  imageSource2: BehaviorSubject<any> = new BehaviorSubject('');
+  imageSource3: BehaviorSubject<any> = new BehaviorSubject('');
 
   catfile: string = '';
   constructor(private sanitizer: DomSanitizer) {}
@@ -125,8 +109,9 @@ export class InscriptionFormComponent {
 
   _handleReaderLoaded(readerEvt: any) {
     var binaryString = readerEvt.target.result;
+    console.log(readerEvt)
     this.base64textString.next(btoa(binaryString));
-    let imageOnData = btoa(binaryString);
+    let imageOnData = `data:image/png;base64, ${btoa(binaryString)}`;
     switch (this.catfile) {
       case 'ine':
         console.log('control for '+this.catfile)

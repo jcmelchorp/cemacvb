@@ -2,6 +2,10 @@
   width: 100%;
 }
 
+p,ol,ul,li {
+  font-size: small;
+}
+
 .radio-column {
   display: flex;
   flex-direction: column;

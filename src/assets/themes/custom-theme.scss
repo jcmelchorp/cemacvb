@@ -77,3 +77,37 @@ $light-theme: mat.define-light-theme(
   // margin-bottom: -1vh !important;
   height: -8px !important;
 }
+
+.my-container {
+  width: 100%;
+  max-width: 1200px; /* Maximum width of the container */
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 576px) {
+  .my-container {
+      max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .my-container {
+      max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .my-container {
+      max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .my-container {
+      max-width: 1140px;
+  }
+}

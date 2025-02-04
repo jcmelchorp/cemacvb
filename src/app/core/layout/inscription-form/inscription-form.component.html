@@ -1,256 +1,262 @@
-<form [formGroup]="formGroup" novalidate (submit)="onSubmit()">
-  <mat-stepper style="padding-right: 50px;padding-left: 50px;" linear #stepper formArrayName="formArray">
-    <mat-step formGroupName="0" [stepControl]="formArray?.get([0])!" [editable]="isEditable">
-      <ng-template matStepLabel>Información importante</ng-template>
-      <ng-template matStepContent>
-        <mat-card>
-          <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>CEMAC Veracruz-Boca del Río</mat-card-title>
-            <mat-card-subtitle>Antes de registrar tus datos, lee la siguiente información:</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            <p>CEMAC, es una organización sin fines de lucro, en donde todos apoyamos y aportamos para que los objetivos
-              se cumplan. Estamos organizados por: Asamblea, Mesa Directiva, Comisión de expresidentes y Cuerpo de
-              guías.
-              Todos los
-              que
-              participamos en cualquier área administrativa u operativa no recibimos emolumento alguno, lo hacemos con
-              el
-              fin de
-              engrandecer a nuestro club y cumplir el objetivo de promover y difundir el excursionismo organizado y
-              deporte al aire
-              libre.</p>
-            <br>
-            <p>Te invitamos a leer nuestros Estatutos y la Carta Responsiva. Accede haciendo click aquí</p>
-            <br>
-            <p>Para agilizar el proceso y garantizar una inscripción exitosa, te recomendamos tener a la mano los
-              siguientes datos y
-              documentos en digital:</p>
-            <div style="padding-left: 40px;">
-              <ol>
-                <li>Identificación oficial (INE o pasaporte).</li>
-                <li>Fotografía en que se aprecie tu rostro, si gustas en actividad que te represente.</li>
-                <li>Numero de celular y corro electrónico.</li>
-                <li>Comprobante de pago.</li>
-              </ol>
-            </div>
-            <p>El depósito o trasferencia por concepto de inscripción ($250.00) y tres mensualidades ($125.00 mensual).
-              Harán un
-              total de $625.00 (Seiscientos Veinticinco Pesos 00/100 M.N). A la Cuenta del club:</p>
-            <br>
-            <div>CLUB DE EXPLORACIONES DE MEXICO, SEC. VER-BOCA DEL RIO, A.C</div>
-            <div>BBVA Bancomer, Suc.5277</div>
-            <div>Cuenta: 0196232884</div>
-            <div>Clabe: 012905001962328844</div>
-            <br>
-
-            <p>Dudas respecto a Tesorería por WhatsApp 22 91 32 70 83.</p>
-
-            Para continuar, ¿cuentas con todos los requisitos?
-            <mat-radio-group class="radio-column" required formControlName="reqState">
-              @for (state of reqStates; track state) {
-              <mat-radio-button [value]="state.key">{{state.value}}</mat-radio-button>
+<div class="my-container">
+  <form [formGroup]="formGroup" novalidate (submit)="onSubmit()">
+    <mat-stepper  linear #stepper formArrayName="formArray">
+      <mat-step formGroupName="0" [stepControl]="formArray?.get([0])!" [editable]="isEditable">
+        <ng-template matStepLabel>Información importante</ng-template>
+        <ng-template matStepContent>
+          <mat-card>
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>CEMAC Veracruz-Boca del Río</mat-card-title>
+              <mat-card-subtitle>Antes de registrar tus datos, lee la siguiente información:</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>CEMAC es una organización sin fines de lucro en donde todos apoyamos y aportamos para que los
+                objetivos se cumplan. Estamos organizados por: Asamblea, Mesa Directiva, Comisión de expresidentes y Cuerpo de
+                guías. Todos los que participamos en cualquier área administrativa u operativa no recibimos emolumento
+                alguno, lo hacemos con el fin de engrandecer a nuestro club y cumplir el objetivo de promover y difundir
+                el excursionismo organizado y deporte al aire libre.
+              </p>
+              <p>Te invitamos a leer nuestros Estatutos y la Carta Responsiva. Accede haciendo click aquí</p>
+              <p>Para agilizar el proceso y garantizar una inscripción exitosa, te recomendamos tener a la mano los
+                siguientes datos y
+                documentos en digital:
+              </p>
+              <div style="padding-left: 40px;">
+                <ol>
+                  <li>Identificación oficial (INE o pasaporte).</li>
+                  <li>Fotografía en que se aprecie tu rostro, si gustas en actividad que te represente.</li>
+                  <li>Numero de celular y corro electrónico.</li>
+                  <li>Comprobante de pago.</li>
+                </ol>
+              </div>
+              <p>El depósito o trasferencia por concepto de inscripción ($250.00) y tres mensualidades ($125.00
+                mensual).
+                Harán un
+                total de $625.00 (Seiscientos Veinticinco Pesos 00/100 M.N). A la Cuenta del club:
+              </p>
+              <p>CLUB DE EXPLORACIONES DE MEXICO, SEC. VER-BOCA DEL RIO, A.C</p>
+              <p>BBVA Bancomer, Suc.5277</p>
+              <p>Cuenta: 0196232884</p>
+              <p>Clabe: 012905001962328844</p>
+              <p>Dudas respecto a Tesorería por WhatsApp 22 91 32 70 83.</p>
+              <p> Para continuar, ¿cuentas con todos los requisitos? </p>
+              <mat-radio-group class="radio-column" required formControlName="reqState">
+                @for (state of ['No tengo alguno de los requisitos.','Si cuento con todos los requisitos.']; track
+                state)
+                {
+                <mat-radio-button [value]="state">{{state}}</mat-radio-button>
+                }
+              </mat-radio-group>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button matStepperNext
+                [disabled]="formArray?.get([0])!.invalid||formArray?.get([0])?.value['reqState']=='No tengo alguno de los requisitos.'">Siguiente</button>
+            </mat-card-actions>
+          </mat-card>
+        </ng-template>
+      </mat-step>
+      <mat-step formGroupName="1" [stepControl]="formArray?.get([1])!" [editable]="true">
+        <ng-template matStepLabel>Datos personales</ng-template>
+        <ng-template matStepContent>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Datos personales</mat-card-title>
+              <img mat-card-sm-image src="/assets/images/ine.png">
+              <mat-card-subtitle>
+                Escribe tus datos tal y como aparecen en tu identificación oficial con fotografía.
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-form-field>
+              <input matInput placeholder="Nombre(s)" formControlName="_01nombres">
+              @if (formArray?.get([1])?.hasError('required')) {
+              <mat-error>Se <strong>requiere</strong></mat-error>
               }
-            </mat-radio-group>
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-button matStepperNext [disabled]="formArray?.get([0])!.invalid">Siguiente</button>
-          </mat-card-actions>
-        </mat-card>
-      </ng-template>
-    </mat-step>
-    <mat-step formGroupName="1" [stepControl]="formArray?.get([1])!" [editable]="true">
-      <ng-template matStepLabel>Datos personales</ng-template>
-      <ng-template matStepContent>
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>Datos personales</mat-card-title>
-            <img mat-card-sm-image src="/assets/images/ine.png">
-            <mat-card-subtitle>
-              Escribe tus datos tal y como aparecen en tu identificación oficial con fotografía.
-            </mat-card-subtitle>
-          </mat-card-header>
-          <mat-form-field>
-            <input matInput placeholder="Nombre(s)" formControlName="nombres">
-            @if (formArray?.get([1])?.hasError('required')) {
-            <mat-error>Se <strong>requiere</strong></mat-error>
-            }
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Primer Apellido" formControlName="apellido1">
-            @if (formArray?.get([1])?.hasError('required')) {
-            <mat-error>Se <strong>requiere</strong></mat-error>
-            }
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Segundo Apellido" formControlName="apellido2">
-            @if (formArray?.get([1])?.hasError('required')) {
-            <mat-error>Se <strong>requiere</strong></mat-error>
-            }
-          </mat-form-field>
-
-          <mat-form-field>
-            <input matInput placeholder="Sobrenombre" formControlName="sobrenombre">
-          </mat-form-field>
-
-          <mat-form-field>
-            <textarea matInput placeholder="Calle y Número" formControlName="address1"></textarea>
-            @if (formArray?.get([1])?.hasError('required')) {
-            <mat-error>Se <strong>requiere</strong></mat-error>
-            }
-          </mat-form-field>
-
-
-          @if (hasUnitNumber) {
-          <mat-form-field>
-            <textarea matInput placeholder="Colonia / Distrito" formControlName="address2"></textarea>
-          </mat-form-field>
-          } @else {
-          <button mat-button type="button" (click)="hasUnitNumber = !hasUnitNumber">
-            + Agrega una referencia más
-          </button>
-          }
-
-          <mat-form-field>
-            <input matInput placeholder="País" formControlName="pais">
-            <mat-error>Se <strong>requiere</strong></mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <input matInput placeholder="Provincia / Entidad Federativa" formControlName="estado">
-            <mat-error>Se <strong>requiere</strong></mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <input matInput placeholder="Municipio / Región" formControlName="municipio">
-            <mat-error>Se <strong>requiere</strong></mat-error>
-          </mat-form-field>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Primer Apellido" formControlName="_02apellido1">
+              @if (formArray?.get([1])?.hasError('required')) {
+              <mat-error>Se <strong>requiere</strong></mat-error>
+              }
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Segundo Apellido" formControlName="_03apellido2">
+              @if (formArray?.get([1])?.hasError('required')) {
+              <mat-error>Se <strong>requiere</strong></mat-error>
+              }
+            </mat-form-field>
 
             <mat-form-field>
-            <input matInput placeholder="Población / Ciudad" formControlName="ciudad">
-            <mat-error>Se <strong>requiere</strong></mat-error>
-          </mat-form-field>
+              <input matInput placeholder="Sobrenombre" formControlName="_00sobrenombre">
+            </mat-form-field>
 
-          <mat-form-field>
-            <input matInput #postalCode maxlength="5" placeholder="Código Postal" type="number"
-              formControlName="postalCode">
-            <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-          </mat-form-field>
+            <mat-form-field>
+              <textarea matInput placeholder="Calle y Número" formControlName="_04address1"></textarea>
+              @if (formArray?.get([1])?.hasError('required')) {
+              <mat-error>Se <strong>requiere</strong></mat-error>
+              }
+            </mat-form-field>
 
-          <mat-radio-group formControlName="genero">
-            <mat-radio-button value="H">Hombre</mat-radio-button>
-            <mat-radio-button value="M">Mujer</mat-radio-button>
-            <mat-radio-button value="T">No específico</mat-radio-button>
-          </mat-radio-group>
-          <mat-card-actions>
-            <!-- <button mat-button matStepperNext [disabled]="formArray?.get([0])!.invalid" type="submit">Enviar</button> -->
-            <button mat-button matStepperNext>Siguiente</button>
-          </mat-card-actions>
-        </mat-card>
-      </ng-template>
-      <!-- </form> -->
-    </mat-step>
-    <mat-step formGroupName="2" [stepControl]="formArray?.get([2])!" [editable]="isEditable">
-      <ng-template matStepLabel>Documentos</ng-template>
-      <ng-template matStepContent>
+
+            @if (hasUnitNumber) {
+            <mat-form-field>
+              <textarea matInput placeholder="Colonia / Distrito" formControlName="_05address2"></textarea>
+            </mat-form-field>
+            } @else {
+            <button mat-button type="button" (click)="hasUnitNumber = !hasUnitNumber">
+              + Agrega una referencia más
+            </button>
+            }
+
+            <mat-form-field>
+              <input matInput placeholder="País" formControlName="_09pais">
+              <mat-error>Se <strong>requiere</strong></mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Provincia / Entidad Federativa" formControlName="_08estado">
+              <mat-error>Se <strong>requiere</strong></mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Municipio / Región" formControlName="_07municipio">
+              <mat-error>Se <strong>requiere</strong></mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Población / Ciudad" formControlName="_06ciudad">
+              <mat-error>Se <strong>requiere</strong></mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput #postalCode maxlength="5" placeholder="Código Postal" type="number"
+                formControlName="_10postalCode">
+              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+            </mat-form-field>
+
+            <mat-radio-group formControlName="_11genero">
+              <mat-radio-button value="Hombre">Hombre</mat-radio-button>
+              <mat-radio-button value="Mujer">Mujer</mat-radio-button>
+            </mat-radio-group>
+            <mat-card-actions>
+              <!-- <button mat-button matStepperNext [disabled]="formArray?.get([0])!.invalid" type="submit">Enviar</button> -->
+              <button mat-button matStepperNext>Siguiente</button>
+            </mat-card-actions>
+          </mat-card>
+        </ng-template>
+        <!-- </form> -->
+      </mat-step>
+      <mat-step formGroupName="2" [stepControl]="formArray?.get([2])!" [editable]="isEditable">
+        <ng-template matStepLabel>Documentos</ng-template>
+        <ng-template matStepContent>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Identificación oficial</mat-card-title>
+              <img mat-card-sm-image src="/assets/images/ine.png">
+              <mat-card-subtitle>
+                Seleccina el archivo que contiene tu Identificación Oficial con Fotografía.
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-label for="filePicker">Archivo con Identificación Oficial con Fotografía:</mat-label>
+              <input type="file" (change)="catfile='ine';handleFileSelect($event)">
+              <br>
+              <img [src]="(imageSource1|async)" alt="Image Source" height="100px">
+
+
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button matStepperPrevious>Back</button>
+              <!-- <button mat-button matStepperNext [disabled]="docsForm.invalid" type="submit">Enviar</button> -->
+              <button mat-button [disabled]="formArray?.get([2])!.invalid" matStepperNext>Siguiente</button>
+            </mat-card-actions>
+          </mat-card>
+          <!-- Información de contacto -->
+          <!-- Cómo te enteraste -->
+          <!-- Información de emergencias -->
+        </ng-template>
+      </mat-step>
+      <mat-step formGroupName="3" [stepControl]="formArray?.get([3])!" [editable]="isEditable">
+        <ng-template matStepLabel>Documentos</ng-template>
+        <ng-template matStepContent>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Comprobante de Pago</mat-card-title>
+              <img mat-card-sm-image src="/assets/images/ine.png">
+              <mat-card-subtitle>
+                Seleciona el archivo que contiene tu recibo bancario de pago.
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-label for="filePicker">Archivo con comprobante de pago:</mat-label>
+              <input type="file" (change)="catfile='recipment';handleFileSelect($event)">
+              <br>
+              <img [src]="(imageSource2|async)" alt="Image Source" height="100px">
+
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button matStepperPrevious>Back</button>
+              <!-- <button mat-button matStepperNext [disabled]="docsForm.invalid" type="submit">Enviar</button> -->
+              <button mat-button [disabled]="formArray?.get([3])!.invalid" matStepperNext>Siguiente</button>
+            </mat-card-actions>
+          </mat-card>
+          <!-- Información de contacto -->
+          <!-- Cómo te enteraste -->
+          <!-- Información de emergencias -->
+        </ng-template>
+      </mat-step>
+      <mat-step formGroupName="4" [stepControl]="formArray?.get([4])!" [editable]="isEditable">
+        <ng-template matStepLabel>Documentos</ng-template>
+        <ng-template matStepContent>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Documentación digital</mat-card-title>
+              <img mat-card-sm-image src="/assets/images/ine.png">
+              <mat-card-subtitle>
+                Seleciona el archivo que contiene la fotografía de tu rostro.
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-label for="filePicker">Archivo con fotografía de tu rostro:</mat-label>
+              <input type="file" (change)="catfile='photo';handleFileSelect($event);">
+              <br>
+              <img [src]="(imageSource3|async)" alt="Image Source" height="100px">
+
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button matStepperPrevious>Back</button>
+              <!-- <button mat-button matStepperNext [disabled]="docsForm.invalid" type="submit">Enviar</button> -->
+              <button mat-button [disabled]="formArray?.get([4])!.invalid" matStepperNext>Siguiente</button>
+            </mat-card-actions>
+          </mat-card>
+        </ng-template>
+      </mat-step>
+      <mat-step [editable]="isEditable">
+        <ng-template matStepLabel>Done</ng-template>
         <mat-card>
           <mat-card-header>
-            <mat-card-title>Identificación oficial</mat-card-title>
-            <img mat-card-sm-image src="/assets/images/ine.png">
-            <mat-card-subtitle>
-              Seleccina el archivo que contiene tu Identificación Oficial con Fotografía.
-            </mat-card-subtitle>
+            <mat-card-title>Por último...</mat-card-title>
+            <mat-card-subtitle>Revisa la información ingrasada para enviar tus datos al proceso de selección</mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
-            <mat-label for="filePicker">Archivo con Identificación Oficial con Fotografía:</mat-label>
-            <input type="file" (change)="catfile='ine';handleFileSelect($event)">
-            <br>
-            <img [src]="(imageSource1|async)" alt="Image Source" height="100px">
-
-
+            <p></p>
+            @for (i of [ 0,1,2,3,4 ]; track $index) {
+            @if (i>1) {
+            {{(formArray?.get([i])!.value|keyvalue)[0].key}}:
+            <img src="{{(formArray?.get([i])!.value|keyvalue)[0].value}}" height="150px">
+            } @else if ( i==0) {
+            <p>{{(formArray?.get([i])!.value|keyvalue)[0].value}}</p>
+            } @else{
+            @for (item of (formArray?.get([i])!.value|keyvalue);track item) {<p>{{item.value}}</p>}
+            }
+            }
           </mat-card-content>
           <mat-card-actions>
             <button mat-button matStepperPrevious>Back</button>
-            <!-- <button mat-button matStepperNext [disabled]="docsForm.invalid" type="submit">Enviar</button> -->
-            <button mat-button [disabled]="formArray?.get([2])!.invalid" matStepperNext>Siguiente</button>
-          </mat-card-actions>
+            <button mat-button [disabled]="formGroup.invalid" type="submit">Enviar</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>          </mat-card-actions>
         </mat-card>
-        <!-- Información de contacto -->
-        <!-- Cómo te enteraste -->
-        <!-- Información de emergencias -->
-      </ng-template>
-    </mat-step>
-    <mat-step formGroupName="3" [stepControl]="formArray?.get([3])!" [editable]="isEditable">
-      <ng-template matStepLabel>Documentos</ng-template>
-      <ng-template matStepContent>
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>Comprobante de Pago</mat-card-title>
-            <img mat-card-sm-image src="/assets/images/ine.png">
-            <mat-card-subtitle>
-              Seleciona el archivo que contiene tu recibo bancario de pago.
-            </mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            <mat-label for="filePicker">Archivo con comprobante de pago:</mat-label>
-            <input  type="file" (change)="catfile='recipment';handleFileSelect($event)">
-            <br>
-            <img [src]="(imageSource2|async)" alt="Image Source" height="100px">
-
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-button matStepperPrevious>Back</button>
-            <!-- <button mat-button matStepperNext [disabled]="docsForm.invalid" type="submit">Enviar</button> -->
-            <button mat-button [disabled]="formArray?.get([3])!.invalid" matStepperNext>Siguiente</button>
-          </mat-card-actions>
-        </mat-card>
-        <!-- Información de contacto -->
-        <!-- Cómo te enteraste -->
-        <!-- Información de emergencias -->
-      </ng-template>
-    </mat-step>
-    <mat-step formGroupName="4" [stepControl]="formArray?.get([4])!" [editable]="isEditable">
-      <ng-template matStepLabel>Documentos</ng-template>
-      <ng-template matStepContent>
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>Documentación digital</mat-card-title>
-            <img mat-card-sm-image src="/assets/images/ine.png">
-            <mat-card-subtitle>
-              Seleciona el archivo que contiene la fotografía de tu rostro.
-            </mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            <mat-label for="filePicker">Archivo con fotografía de tu rostro:</mat-label>
-            <input  type="file" (change)="catfile='photo';handleFileSelect($event);">
-            <br>
-            <img [src]="(imageSource3|async)" alt="Image Source" height="100px">
-
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-button matStepperPrevious>Back</button>
-            <!-- <button mat-button matStepperNext [disabled]="docsForm.invalid" type="submit">Enviar</button> -->
-            <button mat-button [disabled]="formArray?.get([4])!.invalid" matStepperNext>Siguiente</button>
-          </mat-card-actions>
-        </mat-card>
-        <!-- Información de contacto -->
-        <!-- Cómo te enteraste -->
-        <!-- Información de emergencias -->
-      </ng-template>
-    </mat-step>
-    <mat-step [editable]="isEditable">
-      <ng-template matStepLabel>Done</ng-template>
-      <p>Revisa la información ingrasada para enviar tus datos al proceso de selección</p>
-      <p>{{formArray?.get([0])!.value|json}}</p>
-      <p>{{formArray?.get([1])!.value|json}}</p>
-      <p>{{formArray?.get([2])!.value|json}}</p>
-      <p>{{formArray?.get([3])!.value|json}}</p>
-      <p>{{formArray?.get([4])!.value|json}}</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button [disabled]="formGroup.invalid" type="submit">Enviar</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
-    </mat-step>
-  </mat-stepper>
+      </mat-step>
+    </mat-stepper>
+  </form>
+</div>
