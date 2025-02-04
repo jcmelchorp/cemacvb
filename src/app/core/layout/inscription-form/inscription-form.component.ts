@@ -14,7 +14,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 
 import { MatStepperModule } from '@angular/material/stepper';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe, KeyValuePipe } from '@angular/common';
 import { BehaviorSubject, map } from 'rxjs';
 import FileUploadComponent from './file-upload.component';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -27,6 +27,7 @@ import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
   standalone: true,
   imports: [
     AsyncPipe,
+    JsonPipe,
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,

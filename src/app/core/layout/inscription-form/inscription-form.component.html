@@ -241,7 +241,12 @@
     </mat-step>
     <mat-step [editable]="isEditable">
       <ng-template matStepLabel>Done</ng-template>
-      <p>Para enviar tus datos al proceso de selección</p>
+      <p>Revisa la información ingrasada para enviar tus datos al proceso de selección</p>
+      <p>{{formArray?.get([0])!.value|json}}</p>
+      <p>{{formArray?.get([1])!.value|json}}</p>
+      <p>{{formArray?.get([2])!.value|json}}</p>
+      <p>{{formArray?.get([3])!.value|json}}</p>
+      <p>{{formArray?.get([4])!.value|json}}</p>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button [disabled]="formGroup.invalid" type="submit">Enviar</button>
