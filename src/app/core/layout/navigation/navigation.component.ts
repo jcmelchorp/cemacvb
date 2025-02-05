@@ -15,6 +15,7 @@ import { Menu } from '../../models/menu.model';
 import { SidenavComponent } from '../sidenav/sidenav.component';
 import { Overlay } from '@angular/cdk/overlay';
 import { FlexLayoutModule } from 'ngx-flexible-layout';
+import { User } from '../../auth/models/user.model';
 
 @Component({
   templateUrl: './navigation.component.html',
@@ -44,35 +45,12 @@ export class NavigationComponent {
   private router = inject(Router);
   isHandset$: Observable<boolean> = this.layoutService.isHandset$;
   isDarkTheme!: Observable<boolean>;
+  user$!: Observable<User>;
+  isOnline$!: Observable<boolean>;
+  isAdmin$!: Observable<boolean>;
   loading = false;
 
-  menu: Menu = [
-    {
-      title: 'Home',
-      icon: 'home',
-      link: '/home',
-      color: '#ff7f0e',
-    },
-    {
-      title: 'Statistics',
-      icon: 'bar_chart',
-      color: '#ff7f0e',
-      subMenu: [
-        {
-          title: 'Sales',
-          icon: 'money',
-          link: '/sales',
-          color: '#ff7f0e',
-        },
-        {
-          title: 'Customers',
-          icon: 'people',
-          color: '#ff7f0e',
-          link: '/customers',
-        },
-      ],
-    },
-  ];
+ 
 
   constructor() {
     this.router.events.subscribe(event => this.navigationInterceptor(event as RouterEvent));

@@ -57,7 +57,6 @@ export class SidenavComponent {
     { title: 'Nosotros', link:'/about', icon: 'about' },
 
   ];
-    
   
   constructor(
   ) {
