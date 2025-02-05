@@ -1,51 +1,42 @@
-  <div style="text-align: center;">
-    <div>
+<div class="my-container" style="text-align: center;">
+  <div>
     <img src="/assets/images/logo.png" height="100px" class="img-fluid" alt="Login Image">
   </div>
-    <mat-card>
+  <mat-card>
     <mat-card-title>Login</mat-card-title>
-      <mat-card-content>
-        <form [formGroup]="loginForm">
-          <div fxLayout="column" fxLayoutAlign="center stretch">
+    <mat-card-content>
+      <form [formGroup]="loginForm">
+        <div fxLayout="column" fxLayoutAlign="center stretch">
           <div fxFlex>
-          <mat-form-field>
-            <mat-label>Correo electrónico</mat-label>
-            <input type="email" matInput formControlName="email">
-         
+            <mat-form-field>
+              <mat-label>Correo electrónico</mat-label>
+              <input type="email" matInput formControlName="email">
+
               <mat-icon matSuffix>email</mat-icon>
               @if (loginForm.get('email')?.hasError('required')) {
-                  <mat-error>Se requiere un correo electrónico.</mat-error>
+              <mat-error>Se requiere un correo electrónico.</mat-error>
               }
               @if (loginForm.get('email')?.hasError('email')) {
-                  <mat-error>Correo electrónico no válido.</mat-error>
+              <mat-error>Correo electrónico no válido.</mat-error>
               }
-          </mat-form-field>
-        </div>
-        <div fxFlex>
-          <mat-form-field >
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field>
               <mat-label>Contraseña</mat-label>
-              <input
-              matInput
-              [type]="hide ? 'password' : 'text'"
-              formControlName="password"
-            />
-            <button
-              mat-icon-button
-              matSuffix
-              (click)="hide = !hide"
-              [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hide"
-            >
-              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-            </button>
-                          @if (loginForm.get('password')?.hasError('required')) {
-                  <mat-error>Se requiere una contraseña.</mat-error>
+              <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" />
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+              </button>
+              @if (loginForm.get('password')?.hasError('required')) {
+              <mat-error>Se requiere una contraseña.</mat-error>
               }
-          </mat-form-field>
-        </div>
+            </mat-form-field>
+          </div>
           <button mat-stroked-button (click)="submit()" [disabled]="loginForm.invalid">Iniciar Sesión</button>
         </div>
       </form>
-      </mat-card-content>
-    </mat-card>
-  </div>
+    </mat-card-content>
+  </mat-card>
+</div>
