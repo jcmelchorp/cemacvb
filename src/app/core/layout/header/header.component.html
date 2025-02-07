@@ -26,8 +26,79 @@
         <button type="button" mat-icon-button onclick="var el = document.querySelector('body'); el.requestFullscreen();">
           <mat-icon class="rds-icon" matTooltip="Pantalla completa">fullscreen</mat-icon> 
         </button>
-
+        <button *ngIf="isOnline" mat-icon-button [matMenuTriggerFor]="userMenu">
+          <img class="img-fluid rounded-circle" src="{{user.photoUrl?user.photoUrl:user.authPhotoUrl}}" />
+        </button>
+        
       </div>
   </mat-toolbar-row>
   </mat-toolbar>
   <ng-content #progressBar></ng-content>
+  <mat-menu #userMenu="matMenu" fxLayoutAlign="end">
+    <ng-template matMenuContent>
+      <div mat-list-item *ngIf="isOnline && user" [routerLink]="['p']">
+        <!-- <app-user-card [isOnline]="isOnline" [isAdmin]="isAdmin" [user]="user"> </app-user-card> -->
+      </div>
+      <div mat-menu-item *ngIf="isOnline" [routerLink]="['config']">
+        <!-- <fa-icon matListIcon [icon]="faSlidersH" size="lg"></fa-icon> -->
+        <span>&nbsp;Configuración</span>
+      </div>
+      <mat-accordion>
+        <mat-expansion-panel [class.mat-elevation-z0]="true" (opened)="panelOpenState = true"
+          (closed)="canLogout = true;panelOpenState = false" (click)="$event.stopPropagation();"
+          hideToggle="panelOpenState">
+          <mat-expansion-panel-header>
+            <mat-icon matListIcon>logout</mat-icon>
+            <span>Cerrar sesión</span>
+          </mat-expansion-panel-header>
+          <mat-nav-list role="list" dense>
+            <mat-list-item class="right text-danger" (click)="onLogout(user.id)" role="listitem">
+              <mat-icon>directions_run</mat-icon><span>Salir</span>
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <!-- <mat-accordion displayMode="flat">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header (click)="$event.stopPropagation();">
+            <mat-panel-title>
+              <mat-icon *ngIf="!canLogout">logout</mat-icon>
+              <span *ngIf="!canLogout">Cerrar sesión</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item class="text-danger" *ngIf="canLogout">¿Deseas salir?</mat-list-item>
+            <mat-list-item *ngIf="canLogout" (click)="cancel()">Cancelar</mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion> -->
+    </ng-template>
+  </mat-menu>
+  <mat-menu #escuela="matMenu">
+    <ng-template matMenuContent>
+      <div mat-menu-item [routerLink]="['i']" routerLinkActive="active">Portada</div>
+      <div mat-menu-item [routerLink]="['i','about']" routerLinkActive="active">Quiénes somos</div>
+      <div mat-menu-item [matMenuTriggerFor]="oferta">Oferta educativa</div>
+      <div mat-menu-item [routerLink]="['i','location']" routerLinkActive="active">Ubicación y contacto</div>
+    </ng-template>
+  </mat-menu>
+  <mat-menu #webapp="matMenu">
+    <ng-template matMenuContent>
+      <div mat-menu-item [matMenuTriggerFor]="conduct">Código de conducta</div>
+      <div mat-menu-item [routerLink]="['i','privacy-policy']" routerLinkActive="active">Políticas de privacidad</div>
+      <div mat-menu-item [routerLink]="['i','license']" routerLinkActive="active">Licencia</div>
+    </ng-template>
+  </mat-menu>
+  <mat-menu #conduct="matMenu">
+    <ng-template matMenuContent>
+      <div mat-menu-item [routerLink]="['i','code-conduct-school']" routerLinkActive="active">Para espacios académicos
+      </div>
+      <div mat-menu-item [routerLink]="['i','code-conduct']" routerLinkActive="active">Para este sitio</div>
+    </ng-template>
+  </mat-menu>
+  <mat-menu #oferta="matMenu">
+    <ng-template matMenuContent>
+      <div mat-menu-item [routerLink]="['i','remote-learning']" routerLinkActive="active">Educación a distancia</div>
+      <div mat-menu-item [routerLink]="['i','reopenning']" routerLinkActive="active">Reapertura</div>
+    </ng-template>
+  </mat-menu>

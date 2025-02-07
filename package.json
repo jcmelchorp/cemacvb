@@ -36,6 +36,7 @@
     "@ngrx/store": "^17.2.0",
     "angular-animations": "^0.11.0",
     "ngx-flexible-layout": "^17.0.4",
+    "ngx-toastr": "^17.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

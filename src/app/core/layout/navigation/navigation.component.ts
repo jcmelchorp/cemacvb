@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,9 +13,14 @@ import { HeaderComponent } from "../header/header.component";
 import { MatMenuModule } from '@angular/material/menu';
 import { Menu } from '../../models/menu.model';
 import { SidenavComponent } from '../sidenav/sidenav.component';
-import { Overlay } from '@angular/cdk/overlay';
+import { Overlay, OverlayContainer } from '@angular/cdk/overlay';
 import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { User } from '../../auth/models/user.model';
+import * as fromAuthSelectors from '../../store/selectors/auth.selectors';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/states/app.state';
+import { isDarkMode } from '../../store/selectors/config.selectors';
+import { setDarkMode } from '../../store/actions/config.actions';
 
 @Component({
   templateUrl: './navigation.component.html',
@@ -40,26 +45,46 @@ import { User } from '../../auth/models/user.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit {
   private layoutService = inject(LayoutService);
   private router = inject(Router);
-  isHandset$: Observable<boolean> = this.layoutService.isHandset$;
+  
+  isHandset$: Observable<boolean>;
   isDarkTheme!: Observable<boolean>;
   user$!: Observable<User>;
   isOnline$!: Observable<boolean>;
   isAdmin$!: Observable<boolean>;
   loading = false;
 
- 
-
-  constructor() {
+  constructor(
+    private overlay: OverlayContainer,
+    private store: Store<AppState>
+  ) {
     this.router.events.subscribe(event => this.navigationInterceptor(event as RouterEvent));
     this.router.events.subscribe((event_2) =>
       this.navigationInterceptor(event_2 as RouterEvent)
     );
     this.isHandset$ = this.layoutService.isHandset$;
+    this.isOnline$ = this.store.select(fromAuthSelectors.isOnline);
+    this.user$ = this.store.select(fromAuthSelectors.selectUser);
+    this.isAdmin$ = this.store.select(fromAuthSelectors.isAdmin);
   }
 
+  ngOnInit(): void {
+    this.isDarkTheme = this.store.select(isDarkMode);
+    const isDark: boolean = JSON.parse(localStorage.getItem('rds-config-is-dark')!)||{};
+    if (isDark) {
+      this.store.dispatch(setDarkMode({ isDark: isDark }));
+    }
+    this.isDarkTheme.subscribe((isDark) => {
+      if (isDark) {
+        this.overlay.getContainerElement().classList.add('theme-alternate');
+      } else {
+        this.overlay.getContainerElement().classList.remove('theme-alternate');
+      }
+    });
+
+  }
   
   // Shows and hides the loading spinner during RouterEvent changes
   navigationInterceptor(event: RouterEvent): void {

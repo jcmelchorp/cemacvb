@@ -11,6 +11,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AsyncPipe, NgClass, NgIf } from "@angular/common";
 import { FlexLayoutModule } from "ngx-flexible-layout";
 import { AuthService } from "../../auth/services/auth.service";
+import { Store } from "@ngrx/store";
+import { AppState } from "../../store/states/app.state";
+import { User } from "../../auth/models/user.model";
+import { signOut } from "../../store/actions/auth.actions";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatListModule } from "@angular/material/list";
 
 
 @Component({
@@ -18,14 +25,17 @@ import { AuthService } from "../../auth/services/auth.service";
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss',
     standalone: true,
-    imports: [AsyncPipe, MatIconModule, MatToolbarModule, MatButtonModule, MatTooltipModule, AsyncPipe, FlexLayoutModule],
+    imports: [NgIf,AsyncPipe,RouterLink,MatListModule, MatExpansionModule,MatMenuModule, MatIconModule, MatToolbarModule, MatButtonModule, MatTooltipModule, AsyncPipe, FlexLayoutModule],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 
 
 })
 export class HeaderComponent {
-    @Input() isHandset!: boolean | null;
+    @Input() isHandset!: boolean;
+    @Input() user!: User;
+    @Input() isOnline!: boolean;
+    @Input() isAdmin!: boolean;
     private layoutService = inject(LayoutService);
     public themeService = inject(ThemeService);
     private subscriptionService = inject(SubscriptionService);
@@ -34,37 +44,52 @@ export class HeaderComponent {
     isDarkTheme$!: Observable<boolean>;
     public isDarkTheme!: boolean;
     hide: boolean = false;
-    constructor() {
+    canLogout!: boolean;
+    panelOpenState:boolean = false
+    constructor(private store: Store<AppState>,
+    ) {
         this.isDarkTheme$ = this.themeService.isThemeDark.pipe(map((isDark: boolean) => this.isDarkTheme = isDark));
-    }
-
-    showModal: boolean = false;
-
-    toggleModal() {
-        this.showModal = !this.showModal;
     }
 
     toggleDarkTheme(isDarkTheme: boolean) {
         // console.log(isDarkTheme)
         this.themeService.toggleDarkTheme();
     }
+    
+    showModal: boolean = false;
+
+    toggleModal() {
+      this.showModal = !this.showModal;
+    }
+  
     toggleSidenavLeft($event: any) {
-        this.layoutService.toggleSidenavLeft.emit($event);
+      this.layoutService.toggleSidenavLeft.emit($event);
     }
+  
+    onLogout(id: string) {
+      // this.isDoorOpen = false;
+      this.store.dispatch(signOut({ id }));
+    }
+  
+    prepareForLogout(): void {
+
+      this.canLogout = true;
+    }
+
     ngOnDestroy() {
-        this.subscriptionService.unsubscribeComponent$;
+      this.subscriptionService.unsubscribeComponent$;
     }
-
+  
     isAuthenticated() {
-       return  this.authservice.isAuthenticated
+      return this.authservice.isAuthenticated;
     }
-
+  
     async logOut(): Promise<void> {
-        try {
-          await this.authservice.logOut();
-          this._router.navigateByUrl('/login');
-        } catch (error) {
-          console.log(error);
-        }
+      try {
+        await this.authservice.logOut();
+        this._router.navigateByUrl('/login');
+      } catch (error) {
+        console.log(error);
       }
+    }
 }

@@ -17,6 +17,8 @@ import { entityConfig } from './entity-metadata';
 import { provideStore } from '@ngrx/store';
 import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { provideEffects } from '@ngrx/effects';
+import { provideHttpClient } from '@angular/common/http';
+import { provideToastr } from 'ngx-toastr';
 const firebaseProviders: EnvironmentProviders = importProvidersFrom([
   // firebaseConfig is the json extracted for client-side web app
  
@@ -27,6 +29,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom([BrowserAnimationsModule, FlexLayoutModule]),
     provideAnimations(),
     provideAnimationsAsync(),
+    provideHttpClient(),
     provideFirebaseApp(() => initializeApp(environment.firebaseOptions)),
     provideAuth(() => {
         const auth = initializeAuth(getApp(), {
@@ -46,6 +49,12 @@ export const appConfig: ApplicationConfig = {
     provideStore({ router: routerReducer }),
     provideRouterStore(),
     provideEffects(),
-    provideEntityData(entityConfig, withEffects())
+    provideEntityData(entityConfig, withEffects()),
+    provideToastr({
+      timeOut: 2000,
+      progressBar: true,
+      progressAnimation: 'decreasing',
+      closeButton: true
+    })
 ]
 };

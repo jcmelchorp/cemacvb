@@ -48,9 +48,9 @@ export class AuthService {
   private _setUserData(auth: UserCredential): Promise<User> {
     const user: User = {
       id: auth.user.uid,
-      name: (auth.user.displayName || auth.user.email)!,
-      email: auth.user.email!,
-      emailVerified: auth.user.emailVerified,
+      name: {givenName:auth.user.displayName!,familyName:auth.user.displayName!},
+      primaryEmail: auth.user.email!,
+      isVerified: auth.user.emailVerified,
       // custom ones
     };
     const userDocRef = doc(this._firestore, `users/${user.id}`);
