@@ -103,7 +103,7 @@ export class AuthService {
       isVerified: auth.user.emailVerified,
       // custom ones
     };
-    const userDocRef = doc(this._firestore, `users/${user.id}`);
+    const userDocRef = doc(this._firestore, `users/${user.uid}`);
     return setDoc(userDocRef, user).then(() => user);
   }
 
