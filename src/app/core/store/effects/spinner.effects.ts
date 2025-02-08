@@ -7,11 +7,11 @@ import {
   ROUTER_NAVIGATION,
 } from '@ngrx/router-store';
 
-import * as fromAuthActions from '@rds-auth/state/auth.actions';
+import * as fromAuthActions from '../actions/auth.actions';
 
-import { NgxSpinnerService } from 'ngx-spinner';
 
 import { tap } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable()
 export class SpinnerEffects {

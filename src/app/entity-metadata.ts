@@ -19,7 +19,7 @@ const entityMetadata: EntityMetadataMap = {
         .filter((e) => (role ? e.role === role : true))
         .filter((e) => (grade ? e.grade === grade : true))
         .filter((e) => (suspended ? e.suspended === suspended : true)),
-    selectId: (user: User) => user.id,
+    selectId: (user: User) => user.uid!,
     entityDispatcherOptions: {
       optimisticAdd: false,
       optimisticUpdate: false,

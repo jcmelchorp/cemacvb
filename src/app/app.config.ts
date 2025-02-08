@@ -24,6 +24,10 @@ import * as fromRoot from './core/store/states/app.state';
 import { AuthEffects } from './core/store/effects/auth.effects';
 import { ConfigEffects } from './core/store/effects/config.effects';
 import { AppEffects } from './core/store/effects/app.effects';
+import { RouteEffects } from './core/store/router/route.effects';
+import { DialogEffects } from './core/store/effects/dialog.effects';
+import { SnackEffects } from './core/store/effects/snack.effects';
+import { SpinnerEffects } from './core/store/effects/spinner.effects';
 const firebaseProviders: EnvironmentProviders = importProvidersFrom([
   // firebaseConfig is the json extracted for client-side web app
  
@@ -52,7 +56,7 @@ export const appConfig: ApplicationConfig = {
     provideDatabase(() => getDatabase()),
     provideStore( fromRoot.reducers),
     provideRouterStore(),
-    provideEffects([AuthEffects,ConfigEffects,AppEffects]),
+    provideEffects([AuthEffects,ConfigEffects,AppEffects,RouteEffects,DialogEffects,SnackEffects,SpinnerEffects]),
     provideEntityData(entityConfig, withEffects()),
     provideToastr({
       timeOut: 2000,

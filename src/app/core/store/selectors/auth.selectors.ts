@@ -19,7 +19,7 @@ export const selectUser = createSelector(
 );
 export const selectUserId = createSelector(
   selectAuthState,
-  (state: AuthenticationState): string => state.user!.id
+  (state: AuthenticationState): string => state.user!.uid!
 );
 
 export const getError = createSelector(

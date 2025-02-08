@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import * as fromAuthActions from '@rds-auth/state/auth.actions';
+import * as fromAuthActions from '../actions/auth.actions';
 
 import { ToastrService } from 'ngx-toastr';
 
 import { tap } from 'rxjs/operators';
+import { SnackService } from '../../services/snack.service';
 
-import { SnackService } from '@rds-shared/services';
-import { loadAppSuccess } from '@rds-store/actions/app.actions';
 
 @Injectable()
 export class SnackEffects {

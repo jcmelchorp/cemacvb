@@ -1,6 +1,6 @@
 
 export interface User {
-  id: string;
+  id?: string;
   uid?: string
   customerId?: string;
   archived?: boolean;

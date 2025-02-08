@@ -9,15 +9,15 @@
       <!-- <div class="app-name">RDS Spelling Bee</div>  -->
     </div> 
       <div fxLayout="row" fxLayoutAlign="space-evenly end" fxLayoutGap="20px">
-       @if (isAuthenticated()) {
+       <!-- @if (isOnline) {
         <button mat-icon-button (click)="logOut()">
           <mat-icon class="rds-icon" matTooltip="Cerrar sesión">logout</mat-icon>Cerrar sesión
          </button>
        } @else {
         <button mat-icon-button [routerLink]="['/','auth/login']" >
-          <mat-icon class="rds-icon" matTooltip="Iniciar sesión">login</mat-icon>Iniciar sesión
+          <mat-icon class="rds-icon" matTooltip="Iniciar sesión">login</mat-icon>
         </button>
-       }
+       } -->
         <button type="button" mat-icon-button (click)="toggleDarkTheme(isDarkTheme)">
        <mat-icon class="rds-icon"  [matTooltip]="(isDarkTheme$|async)?'Modo oscuro':'Modo claro'"  aria-label="Alternar tema">{{(isDarkTheme$|async)?'nightlight':'light_mode'}}</mat-icon>
       </button>
@@ -53,7 +53,7 @@
             <span>Cerrar sesión</span>
           </mat-expansion-panel-header>
           <mat-nav-list role="list" dense>
-            <mat-list-item class="right text-danger" (click)="onLogout(user.id)" role="listitem">
+            <mat-list-item class="right text-danger" (click)="onLogout(user.uid!)" role="listitem">
               <mat-icon>directions_run</mat-icon><span>Salir</span>
             </mat-list-item>
           </mat-nav-list>

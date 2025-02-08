@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import * as fromAuthActions from '@rds-auth/state/auth.actions';
+import * as fromAuthActions from '../actions/auth.actions';
 
 import { tap } from 'rxjs/operators';
 

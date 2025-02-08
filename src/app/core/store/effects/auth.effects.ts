@@ -62,7 +62,7 @@ export class AuthEffects implements OnInitEffects {
       ofType(authAction.signIn),
       switchMap(() =>
         //from(signInWithPopup(this.auth, new GoogleAuthProvider())).pipe(
-          of(this.authService.byGoogle()).pipe(
+          from(this.authService.byGoogle()).pipe(
           map((res: any) => {
             //console.log(res)
             return {
@@ -95,10 +95,10 @@ export class AuthEffects implements OnInitEffects {
       switchMap((user) => {
         return [
           authAction.updateOnlineStatus({
-            id: user.user.id,
+            id: user.user.uid!,
             isOnline: true,
           }),
-          authAction.checkAdminRole({ id: user.user.id }),
+          authAction.checkAdminRole({ id: user.user.uid! }),
         ];
       })
     )

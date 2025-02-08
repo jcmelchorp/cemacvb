@@ -1,9 +1,29 @@
-import { inject, Injectable } from "@angular/core";
-import { Auth, authState, createUserWithEmailAndPassword, GoogleAuthProvider, idToken, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, user, User, UserCredential } from "@angular/fire/auth";
-import { doc, Firestore, getDoc, setDoc, updateDoc } from "@angular/fire/firestore";
+import { inject, Injectable } from '@angular/core';
+import {
+  Auth,
+  authState,
+  createUserWithEmailAndPassword,
+  getRedirectResult,
+  GoogleAuthProvider,
+  idToken,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  user,
+  User,
+  UserCredential,
+} from '@angular/fire/auth';
+import {
+  doc,
+  Firestore,
+  getDoc,
+  setDoc,
+  updateDoc,
+} from '@angular/fire/firestore';
 import { User as AuthUser } from '../../auth/models/user.model';
-import { from, Observable } from "rxjs";
-import { firebaseSerialize } from "../../models/firebase.model";
+import { from, Observable, of } from 'rxjs';
+import { firebaseSerialize } from '../../models/firebase.model';
 
 export interface Credential {
   email: string;
@@ -14,18 +34,16 @@ export interface Credential {
 export class AuthService {
   private _firestore = inject(Firestore);
   private _auth = inject(Auth);
-  authState$ = authState(this._auth);  // 👈👈👈
-  user$ = user(this._auth);            // 👈👈👈
-  idToken$ = idToken(this._auth);      // 👈👈👈
+  authState$ = authState(this._auth); // 👈👈👈
+  user$ = user(this._auth); // 👈👈👈
+  idToken$ = idToken(this._auth); // 👈👈👈
 
-  
-
-  byGoogle(): Promise<AuthUser> {
+ async byGoogle(): Promise<UserCredential> {
     // you can simply change the Google for another provider here
-    return signInWithPopup(this._auth, new GoogleAuthProvider()).then(
-      (auth) => this._setUserData(auth)
-    );
-  }
+      const provider = new GoogleAuthProvider(); // Use 'GoogleAuthProvider' directly
+      provider.setCustomParameters({ prompt: 'select_account' });
+      return signInWithPopup(this._auth, provider)
+ }
 
   signup(email: string, password: string): Promise<AuthUser> {
     return createUserWithEmailAndPassword(
@@ -35,40 +53,39 @@ export class AuthService {
     ).then((auth) => this._setUserData(auth));
   }
 
-  login(credential:Credential): Promise<AuthUser> {
+  login(credential: Credential): Promise<UserCredential> {
     return signInWithEmailAndPassword(
       this._auth,
       credential.email.trim(),
-      credential.password.trim()
-    ).then((auth) => this._setUserData(auth));
+      credential.password.trim());
   }
 
-  logOut(id?:string): Promise<void> {
+  logOut(id?: string): Promise<void> {
     return this._auth.signOut();
   }
 
-  checkAdminRole(id: string): Observable<boolean> {
+  checkAdminRole(uid: string): Observable<boolean> {
     /*  if (environment.useAuthEmulator) {
        const doc = ref(this.database, `${this.collection}/${id}`);
        return objectVal(doc).pipe(pluck('isAdmin'));
      } else { */
-    const afsRef = doc(this._firestore, `users/${id}`);
-    return from(getDoc(afsRef).then(user => user.get('isAdmin')));
+    const afsRef = doc(this._firestore, `users/${uid}`);
+    return from(getDoc(afsRef).then((user) => user.get('isAdmin')));
     /* } */
   }
-  
+
   saveUser(user: AuthUser) {
     const key = user.id;
     /*  if (environment.useAuthEmulator) {
        const rtdbRef = ref(this.database, `${this.collection}/${key}`);
        return from(update(rtdbRef, user))
      } else { */
-    const afsRef = doc(this._firestore,`users/${user.id}`);
-    return from(updateDoc(afsRef, firebaseSerialize(user)))
+    const afsRef = doc(this._firestore, `users/${user.uid}`);
+    return from(updateDoc(afsRef, firebaseSerialize(user)));
     /* } */
-  } 
+  }
 
-  updateOnlineStatus(id: string, status: boolean): Observable<void> {
+  updateOnlineStatus(uid: string, status: boolean): Observable<void> {
     /* if (status) {
       return from(
         this.afDatabase.database
@@ -87,18 +104,18 @@ export class AuthService {
        const doc = ref(this.database, `${this.collection}/${id}`);
        return from(update(doc, { isOnline: status }));
      } else { */
-    const afsRef = doc(this._firestore, `users/${id}`);
+    const afsRef = doc(this._firestore, `users/${uid}`);
     return from(updateDoc(afsRef, { isOnline: status }));
     /*  } */
   }
-  
+
   private _setUserData(auth: UserCredential): Promise<AuthUser> {
-    console.log(auth.user)
     const user: AuthUser = {
       uid: auth.user.uid!,
-      id:auth.user.providerData[0].uid,
-      photoUrl:auth.user.providerData[0].photoURL!,
-      name: {fullName:auth.user.providerData[0].displayName!},
+      
+      id: auth.user.providerData[0].uid,
+      photoUrl: auth.user.providerData[0].photoURL!,
+      name: { familyName:auth.user.providerData[1].displayName!, fullName: auth.user.providerData[0].displayName!},
       primaryEmail: auth.user.email!,
       isVerified: auth.user.emailVerified,
       // custom ones
@@ -115,18 +132,18 @@ export class AuthService {
   }
 
   //Send Password Reset Email
-  async sendPasswordResetEmails(email : string){
-    sendPasswordResetEmail(this._auth,email)
-    .then(() => {
-       window.alert('Password reset email sent, check your inbox.');
-    })
-    .catch((error) => {
-     window.alert(error.message);
-   });
- }
+  async sendPasswordResetEmails(email: string) {
+    sendPasswordResetEmail(this._auth, email)
+      .then(() => {
+        window.alert('Password reset email sent, check your inbox.');
+      })
+      .catch((error) => {
+        window.alert(error.message);
+      });
+  }
 
-//  //Send Email Verification
-//  sendEmailVerification(){
-//    return sendEmailVerification(this._auth.currentUser as User );
-//  }
+  //  //Send Email Verification
+  //  sendEmailVerification(){
+  //    return sendEmailVerification(this._auth.currentUser as User );
+  //  }
 }
