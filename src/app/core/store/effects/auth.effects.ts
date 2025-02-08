@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
-import { of, Observable, defer, from } from 'rxjs';
-import { switchMap, map, catchError, take, tap } from 'rxjs/operators';
+import { of, Observable, defer, from, switchMap, map, catchError, tap } from 'rxjs';
 import * as authAction from '../actions/auth.actions';
 
 import { Action, INIT } from '@ngrx/store';
-import { GapiService } from '../services/gapi.service';
 import { Auth, authState, GoogleAuthProvider, signInWithPopup, User as FireUser } from '@angular/fire/auth';
 import { AuthService } from '../../auth/services/auth.service';
 import { User } from '../../auth/models/user.model';
@@ -28,7 +26,7 @@ export class AuthEffects implements OnInitEffects {
       ofType(authAction.getUser),
       switchMap(() => authState(this.auth)
         .pipe(
-          map((fireUser: FireUser) => {
+          map((fireUser: FireUser|null)=> {
             if (fireUser) {
               return {
                 id: fireUser.providerData[0].uid,
@@ -42,7 +40,7 @@ export class AuthEffects implements OnInitEffects {
                 uid: fireUser.uid,
               } as User;
             } else {
-              return null;
+              return null
             }
           }),
           map((user) => {
@@ -83,7 +81,6 @@ export class AuthEffects implements OnInitEffects {
             return [
               authAction.saveUser({ user }),
               authAction.signInSuccess({ user })
-
             ];
           }),
           catchError((error) => of(authAction.notAuthenticated({ error })))
@@ -130,25 +127,12 @@ export class AuthEffects implements OnInitEffects {
     )
   );
 
-  checkTeacherRole$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(authAction.checkTeacherRole),
-      switchMap((action) =>
-        this.authService
-          .checkTeacherRole(action.id)
-          .pipe(
-            switchMap((isTeacher) => [
-              authAction.updateTeachersRole({ isTeacher }),
-            ])
-          )
-      )
-    )
-  );
+ 
   signOut$ = createEffect(() =>
     this.actions$.pipe(
       ofType(authAction.signOut),
       switchMap((action) =>
-        this.authService.signOut(action.id).pipe(
+        of(this.authService.logOut(action.id)).pipe(
           map(() => {
             return authAction.signOutCompleted();
           }),

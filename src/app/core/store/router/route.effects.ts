@@ -46,7 +46,7 @@ export class RouteEffects {
     () =>
       this.actions$.pipe(
         ofType(fromAuthActions.signInSuccess),
-        tap(() => this.router.navigate(['/']))
+        tap(() => this.router.navigate(['/home']))
       ),
     { dispatch: false }
   );

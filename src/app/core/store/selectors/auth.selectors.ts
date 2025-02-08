@@ -7,7 +7,7 @@ export const selectAuthState =
 
 export const isOnline = createSelector(
   selectAuthState,
-  (state: AuthenticationState): boolean => !!state.user
+  (state: AuthenticationState): boolean => state.isOnline
 );
 export const isAdmin = createSelector(
   selectAuthState,
@@ -15,11 +15,11 @@ export const isAdmin = createSelector(
 );
 export const selectUser = createSelector(
   selectAuthState,
-  (state: AuthenticationState): User => state.user
+  (state: AuthenticationState): User => state.user!
 );
 export const selectUserId = createSelector(
   selectAuthState,
-  (state: AuthenticationState): string => state.user.id
+  (state: AuthenticationState): string => state.user!.id
 );
 
 export const getError = createSelector(

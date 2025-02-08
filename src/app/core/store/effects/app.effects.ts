@@ -6,7 +6,6 @@ import {
   ofType,
   ROOT_EFFECTS_INIT,
 } from '@ngrx/effects';
-import { GapiService } from '@rds-auth/services';
 
 import { defer, from, Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
@@ -18,7 +17,7 @@ export class AppEffects {
     this.actions$.pipe(
       ofType(loadApp, ROOT_EFFECTS_INIT),
       switchMap(() =>
-        of(this.gapiService.handleClientLoad()).pipe(
+        of().pipe(
           switchMap(() => of(loadAppSuccess()))
         )
       ),

@@ -5,11 +5,13 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-not-found',
   standalone: true,
-  imports:[MatIconModule,MatButtonModule],
+  imports:[MatCardModule,MatIconModule,MatButtonModule,RouterLink],
   templateUrl: './not-found.component.html',
   styleUrls: ['./not-found.component.scss'],
 })

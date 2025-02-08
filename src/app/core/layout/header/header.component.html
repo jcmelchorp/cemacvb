@@ -11,11 +11,11 @@
       <div fxLayout="row" fxLayoutAlign="space-evenly end" fxLayoutGap="20px">
        @if (isAuthenticated()) {
         <button mat-icon-button (click)="logOut()">
-          <mat-icon class="rds-icon" matTooltip="Cerrar sesión">logout</mat-icon>
+          <mat-icon class="rds-icon" matTooltip="Cerrar sesión">logout</mat-icon>Cerrar sesión
          </button>
        } @else {
-        <button mat-icon-button routerLink="['/login']" >
-          <mat-icon class="rds-icon" matTooltip="Iniciar sesión">login</mat-icon> 
+        <button mat-icon-button [routerLink]="['/','auth/login']" >
+          <mat-icon class="rds-icon" matTooltip="Iniciar sesión">login</mat-icon>Iniciar sesión
         </button>
        }
         <button type="button" mat-icon-button (click)="toggleDarkTheme(isDarkTheme)">
@@ -26,10 +26,11 @@
         <button type="button" mat-icon-button onclick="var el = document.querySelector('body'); el.requestFullscreen();">
           <mat-icon class="rds-icon" matTooltip="Pantalla completa">fullscreen</mat-icon> 
         </button>
-        <button *ngIf="isOnline" mat-icon-button [matMenuTriggerFor]="userMenu">
+       @if (isOnline) {
+        <button  mat-icon-button [matMenuTriggerFor]="userMenu">
           <img class="img-fluid rounded-circle" src="{{user.photoUrl?user.photoUrl:user.authPhotoUrl}}" />
         </button>
-        
+      }
       </div>
   </mat-toolbar-row>
   </mat-toolbar>

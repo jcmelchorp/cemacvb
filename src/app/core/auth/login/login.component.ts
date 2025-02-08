@@ -9,7 +9,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-
+import * as fromAuthActions from '../../store/actions/auth.actions';
+import { AppState } from '../../store/states/app.state';
+import { Store } from '@ngrx/store';
 interface LogInForm {
   email: FormControl<string>;
   password: FormControl<string>;
@@ -31,6 +33,7 @@ export class LoginComponent {
   router = inject(Router);
   errorMessage!: string | null;
 
+  constructor(private store: Store<AppState>){}
   loginForm: FormGroup<LogInForm> = this.formBuilder.group({
     email: this.formBuilder.control('', {
       validators: [Validators.required, Validators.email],
@@ -56,6 +59,11 @@ export class LoginComponent {
     return false;
   }
 
+  loginByGoogle() {
+    this.store.dispatch(fromAuthActions.signIn());
+  }
+
+
   submit() {
     if (this.loginForm.invalid) return;
     const credential: Credential = {
@@ -64,11 +72,11 @@ export class LoginComponent {
     };
 
     try {
-      this.auth.login(credential)
+     let user= this.auth.login(credential);
+     console.log(user);
       const snackBarRef = this.openSnackBar();
-
       snackBarRef.afterDismissed().subscribe(() => {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/home');
       });
     } catch (error) {
       console.error(error);

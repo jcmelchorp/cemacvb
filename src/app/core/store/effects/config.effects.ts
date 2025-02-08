@@ -16,12 +16,12 @@ export class ConfigEffects {
   toggleDarkMode$ = createEffect(() =>
     this.actions$.pipe(
       ofType(configActions.toggleDarkMode),
-      switchMap((config) => this.themeService.toggleDarkTheme(config.isDark).pipe(
+      switchMap((config) => of(this.themeService.setDarkTheme(config.isDark)).pipe(
         tap(isDark => console.log(`isDark: ${isDark}`)),
         switchMap(isDark => {
           return [
-            configActions.toggleDarkModeSuccess({ isDark: isDark }),
-            configActions.saveDarkMode({ isDark: isDark }),
+            configActions.toggleDarkModeSuccess({ isDark: isDark! }),
+            configActions.saveDarkMode({ isDark: isDark!}),
           ];
         }),
         catchError((error) => of(configActions.toggleDarkModeFail({ error })))
@@ -56,7 +56,7 @@ export class ConfigEffects {
       this.actions$.pipe(
         ofType(configActions.saveDarkMode),
         tap((action) =>
-          localStorage.setItem('rds-config-is-dark', action.isDark.toString())
+          localStorage.setItem('cemac-config-is-dark', action.isDark.toString())
         )
       ),
     { dispatch: false }
@@ -66,7 +66,7 @@ export class ConfigEffects {
       this.actions$.pipe(
         ofType(configActions.removeDarkMode),
         tap(() =>
-          localStorage.removeItem('rds-config-is-dark')
+          localStorage.removeItem('cemac-config-is-dark')
         )
       ),
     { dispatch: false }

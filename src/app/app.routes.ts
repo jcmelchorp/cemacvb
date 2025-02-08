@@ -10,6 +10,11 @@ import {
 import { authGuard, publicGuard } from './core/auth/guards/auth.guard';
 import { NotFoundComponent } from './core/layout/not-found/not-found.component';
 import { LandingComponent } from './core/layout/landing/landing.component';
+import { RegisterComponent } from './core/auth/register/register.component';
+import { LoginComponent } from './core/auth/login/login.component';
+import { FaqComponent } from './core/layout/faq/faq.component';
+import { InscriptionFormComponent } from './core/layout/inscription-form/inscription-form.component';
+import { AboutComponent } from './core/layout/about/about.component';
 
 
 
@@ -30,12 +35,7 @@ export const routes: Routes = [
                 children: [
                     {
                         path: 'register',
-                        loadComponent: () => import('./core/auth/register/register.component').then(m => m.RegisterComponent),
-        
-                    },
-                    {
-                        path: 'login',
-                        loadComponent: () => import('./core/auth/login/login.component').then(m => m.LoginComponent),
+                        component: RegisterComponent,
         
                     },
                 ],
@@ -43,25 +43,30 @@ export const routes: Routes = [
             {
                 path: 'inscription',
                 canActivate: [publicGuard],
-                loadComponent: () => import('./core/layout/inscription-form/inscription-form.component').then(m => m.InscriptionFormComponent),
+                component: InscriptionFormComponent,
+
+            },
+            {
+                path: 'login',
+                component: LoginComponent,
 
             },
             {
                 path: 'faq',
                 canActivate: [publicGuard],
-                loadComponent: () => import('./core/layout/faq/faq.component').then(m => m.FaqComponent),
+                component: FaqComponent,
 
             },
             {
                 path: 'home',
                 canActivate: [authGuard],
-                loadComponent: () => import('./core/layout/home/home.component').then(m => m.HomeComponent),
+                component: HomeComponent,
 
             },
             {
                 path: 'about',
                 canActivate: [publicGuard],
-                loadComponent: () => import('./core/layout/about/about.component').then(m => m.AboutComponent),
+                component: AboutComponent,
             },
         ],
     },

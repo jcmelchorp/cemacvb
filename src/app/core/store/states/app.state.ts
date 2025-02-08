@@ -1,10 +1,10 @@
-import { RouterState } from "@angular/router";
 import { Action, ActionReducer, ActionReducerMap, INIT, MetaReducer } from "@ngrx/store";
 import { AuthenticationState, authFeatureKey, authReducer } from "../reducers/auth.reducer";
-import { configFeatureKey, configReducer, ConfigState } from "../reducers/config.reducer";
+import { configFeatureKey, configReducer, ConfigState }  from '../reducers/config.reducer';
 import * as authActions from '../actions/auth.actions';
-import { routerReducer } from "@ngrx/router-store";
-import { environment } from "../../../../environments/environment.prod";
+
+import { routerReducer, RouterState } from "@ngrx/router-store";
+import { environment } from "../../../../environments/environment";
 import { routerKey } from "../router";
 
 export interface AppState {

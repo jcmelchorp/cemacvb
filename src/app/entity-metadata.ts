@@ -1,11 +1,36 @@
-import { User } from '@angular/fire/auth';
 import { EntityMetadataMap, EntityDataModuleConfig, PropsFilterFnFactory } from '@ngrx/data';
+import { User } from './core/auth/models/user.model';
 
+const entitySelectId = 'url';
+const entityCollectionName = 'User';
+const pluralizedEntityName = 'users';
+const entityCollectionEndPoint = pluralizedEntityName;
 const entityMetadata: EntityMetadataMap = {
-  User:{},
+  [entityCollectionName]: {
+    sortComparer: (a: User, b: User) => a.name!.familyName!.localeCompare(b.name!.familyName!),
+    filterFn: (entities: User[], { primaryEmail, name, role, grade, suspended }: Partial<User>) =>
+      entities
+        .filter((e) => (name && e.name && e.name.fullName
+          ? e.name.fullName
+            .toLocaleLowerCase()
+            .includes(`${name.fullName!.toLocaleLowerCase()}`)
+          : true))
+        .filter((e) => (primaryEmail ? e.primaryEmail === primaryEmail : true))
+        .filter((e) => (role ? e.role === role : true))
+        .filter((e) => (grade ? e.grade === grade : true))
+        .filter((e) => (suspended ? e.suspended === suspended : true)),
+    selectId: (user: User) => user.id,
+    entityDispatcherOptions: {
+      optimisticAdd: false,
+      optimisticUpdate: false,
+      optimisticSaveEntities: false,
+      optimisticDelete: false,
+      optimisticUpsert: false,
+    },
+  },
 };
 
-const pluralNames = { User:'Users' };
+const pluralNames = { [entityCollectionName]:pluralizedEntityName };
 
 export const entityConfig: EntityDataModuleConfig = {
   entityMetadata,

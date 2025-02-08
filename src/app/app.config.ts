@@ -19,6 +19,11 @@ import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { provideEffects } from '@ngrx/effects';
 import { provideHttpClient } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
+import { reducers } from './core/store/states/app.state';
+import * as fromRoot from './core/store/states/app.state';
+import { AuthEffects } from './core/store/effects/auth.effects';
+import { ConfigEffects } from './core/store/effects/config.effects';
+import { AppEffects } from './core/store/effects/app.effects';
 const firebaseProviders: EnvironmentProviders = importProvidersFrom([
   // firebaseConfig is the json extracted for client-side web app
  
@@ -26,7 +31,7 @@ const firebaseProviders: EnvironmentProviders = importProvidersFrom([
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withViewTransitions()),
-    importProvidersFrom([BrowserAnimationsModule, FlexLayoutModule]),
+    importProvidersFrom([BrowserAnimationsModule, FlexLayoutModule,RouterModule.forRoot(routes)]),
     provideAnimations(),
     provideAnimationsAsync(),
     provideHttpClient(),
@@ -45,10 +50,9 @@ export const appConfig: ApplicationConfig = {
     provideStorage(() => getStorage()),
     provideAnalytics(() => getAnalytics()), ScreenTrackingService, UserTrackingService,
     provideDatabase(() => getDatabase()),
-    importProvidersFrom(RouterModule.forRoot(routes)),
-    provideStore({ router: routerReducer }),
+    provideStore( fromRoot.reducers),
     provideRouterStore(),
-    provideEffects(),
+    provideEffects([AuthEffects,ConfigEffects,AppEffects]),
     provideEntityData(entityConfig, withEffects()),
     provideToastr({
       timeOut: 2000,

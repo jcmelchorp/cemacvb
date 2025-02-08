@@ -23,7 +23,6 @@ import { Menu } from "../../models/menu.model";
   styleUrls: ['./sidenav.component.scss'],
   imports: [
     MainComponent,
-    FooterComponent,
     MatSidenavModule,
     MatMenuModule,
     MatToolbarModule,
@@ -52,7 +51,7 @@ export class SidenavComponent {
     { title: 'Inicio', link:'/', icon: 'home' },
     { title: 'Inscripciones', link: '/inscription', icon: 'person_add' },
     { title: 'Registrar cuenta', link:'/auth/register', icon: 'badge' },  
-    { title: 'Iniciar Sesión', link:'/auth/login', icon: 'login' },  
+    { title: 'Iniciar Sesión', link:'/login', icon: 'login' },  
     { title: 'Preguntas', link:'/faq', icon: 'question_mark' },
     { title: 'Nosotros', link:'/about', icon: 'about' },
 

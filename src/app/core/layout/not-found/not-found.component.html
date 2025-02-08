@@ -4,23 +4,21 @@
     <div class="layer rocks1"></div>
     <div class="layer hills"></div>
     <div class="layer foreground"></div>
-    <div class="jumbotron">
-      <div class="text-center">
-        <p class="display-4 head-component text-danger">
-          Error 404
-        </p>
-        <p class="mat-h1">
-          Ésta no es la página que buscas ya que no existe.
-        </p>
-        <p>
-          Pagina no encontrada.
-        </p>
-        <button mat-raised-button color="primary" routerLink="/">
+    <mat-card style="padding:50px;margin:50px;background-color:  rgba(#154626, 0.5);max-width: fit-content;justify-content: center;">
+      <mat-card-header>
+        <mat-card-title>Error 404</mat-card-title>
+        <mat-card-subtitle>Pagina no encontrada.</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <!-- Ésta no es la página que buscas ya que no existe. -->
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button  [routerLink]="['/']">
           <mat-icon>home</mat-icon>
           <span>Inicio</span>
-        </button>
+        </button>      </mat-card-actions>
+    </mat-card>
+     
+       
       </div>
     </div>
-  </div>
-
-</div>

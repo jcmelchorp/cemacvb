@@ -19,7 +19,7 @@ import { User } from '../../auth/models/user.model';
 import * as fromAuthSelectors from '../../store/selectors/auth.selectors';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/states/app.state';
-import { isDarkMode } from '../../store/selectors/config.selectors';
+import * as configSelectors from '../../store/selectors/config.selectors';
 import { setDarkMode } from '../../store/actions/config.actions';
 
 @Component({
@@ -57,7 +57,6 @@ export class NavigationComponent implements OnInit {
   loading = false;
 
   constructor(
-    private overlay: OverlayContainer,
     private store: Store<AppState>
   ) {
     this.router.events.subscribe(event => this.navigationInterceptor(event as RouterEvent));
@@ -71,19 +70,7 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isDarkTheme = this.store.select(isDarkMode);
-    const isDark: boolean = JSON.parse(localStorage.getItem('rds-config-is-dark')!)||{};
-    if (isDark) {
-      this.store.dispatch(setDarkMode({ isDark: isDark }));
-    }
-    this.isDarkTheme.subscribe((isDark) => {
-      if (isDark) {
-        this.overlay.getContainerElement().classList.add('theme-alternate');
-      } else {
-        this.overlay.getContainerElement().classList.remove('theme-alternate');
-      }
-    });
-
+    this.isDarkTheme = this.store.select(configSelectors.isDarkMode);
   }
   
   // Shows and hides the loading spinner during RouterEvent changes

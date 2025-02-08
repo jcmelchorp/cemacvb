@@ -4,19 +4,14 @@ import { User } from '../../auth/models/user.model';
 
 export const authFeatureKey = 'auth';
 export interface AuthenticationState {
-  user: User;
+  user: User|null;
   isAdmin: boolean;
   isOnline: boolean;
   error: any;
 }
 
 export const initialState: AuthenticationState = {
-  user: {
-    id: '',
-    name: {},
-    primaryEmail: '',
-    isVerified: false
-  },
+  user: null,
   isAdmin: false,
   isOnline: false,
   error: null,
@@ -34,12 +29,7 @@ export const authReducer = createReducer<AuthenticationState>(
   on(authActions.signInFail, (state) => {
     return {
       ...state,
-      user: {
-        id: '',
-        name: {},
-        email: '',
-        emailVerified: false
-      },
+      user: null,
     };
   }),
   on(authActions.notAuthenticated, (state, action) => {
@@ -51,12 +41,7 @@ export const authReducer = createReducer<AuthenticationState>(
   on(authActions.signOutCompleted, (state) => {
     return {
       ...state,
-      user: {
-        id: '',
-        name: {},
-        email: '',
-        emailVerified: false
-      },
+      user: null,
       isAdmin: false,
       isTeacher: false,
       isOnline: false,
