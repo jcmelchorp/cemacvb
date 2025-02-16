@@ -1,22 +1,24 @@
 <mat-toolbar>
   <mat-toolbar-row class="elevation-card" fxLayoutAlign="space-between center">
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      @if (isHandset) {
       <button type="button" aria-label="mostrar menu" mat-icon-button (click)="toggleSidenavLeft($event)">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
+    }
       <button type="button" aria-label="Inicio" mat-icon-button [routerLink]="['/']">
         <img class="rounded-circle" src="assets/images/logo.png" />
       </button>
-      @if (!isOnline) {
-      <button type="button" aria-label="Quiénes somos" mat-flat-button [routerLink]="['/about']">
-        Acerca de...
-      </button>
-      <button type="button" aria-label="Preguntas frecuentes" mat-flat-button [routerLink]="['/faq']">
+      @if (!isOnline && !isHandset) {
+      <a type="button" style="background-color: transparent;" aria-label="Quiénes somos" mat-flat-button [routerLink]="['/about']">
+        Quiénes somos
+      </a>
+      <a type="button" style="background-color: transparent;" aria-label="Preguntas frecuentes" mat-flat-button [routerLink]="['/faq']">
         Preguntas
-      </button>
-      <button type="button" aria-label="inscripción" mat-flat-button [routerLink]="['/inscription']">
+      </a>
+      <a type="button" style="background-color: transparent;" aria-label="inscripción" mat-flat-button [routerLink]="['/inscription']">
         Inscribete
-      </button>
+      </a>
       }
     </div>
     <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px">
