@@ -10,6 +10,8 @@ import { FaqComponent } from './core/layout/faq/faq.component';
 import { InscriptionFormComponent } from './core/layout/inscription-form/inscription-form.component';
 import { AboutComponent } from './core/layout/about/about.component';
 import { SettingsComponent } from './core/layout/settings/settings.component';
+import { TermsComponent } from './core/layout/terms/terms.component';
+import { PrivacyPolicyComponent } from './core/layout/privacy-policy/privacy-policy.component';
 
 export const routes: Routes = [
   {
@@ -58,6 +60,14 @@ export const routes: Routes = [
       {
         path: 'about',
         component: AboutComponent,
+      },
+      {
+        path: 'terms',
+        component: TermsComponent,
+      },
+      {
+        path: 'privacy',
+        component: PrivacyPolicyComponent,
       },
       {
         path: '404',
