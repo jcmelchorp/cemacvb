@@ -70,23 +70,23 @@ export class InscriptionFormComponent {
         _11genero: [null, Validators.required],
       }),
       this.fb.group({
-        email: [null, Validators.required],
-        telefono: [null, Validators.required],
+        _12email: [null, Validators.required],
+        _13telefono: [null, Validators.required],
         // canEmail: [null, Validators.required ],
         // canCall: [null, Validators.required],
         // canSMS: [null, Validators.required],
         // canWA: [null, Validators.required],
-        horario: [null, Validators.required],
-        referencia: [null, Validators.required],
-        emer_name: [null, Validators.required],
-        emer_relation: [null, Validators.required],
-        emer_telefono: [null, Validators.required],
-        ss_name: [null, Validators.required],
-        nss: [null, Validators.required],
-        alergias: [null, Validators.required],
-        padecimientos: [null, Validators.required],
-        medicamentos: [null, Validators.required],
-        sangre: [null, Validators.required],
+        _14horario: [null, Validators.required],
+        _15referencia: [null, Validators.required],
+        _16emer_name: [null, Validators.required],
+        _17emer_relation: [null, Validators.required],
+        _18emer_telefono: [null, Validators.required],
+        _19ss_name: [null, Validators.required],
+        _20nss: [null, Validators.required],
+        _21alergias: [null, Validators.required],
+        _22padecimientos: [null, Validators.required],
+        _23medicamentos: [null, Validators.required],
+        _24sangre: [null, Validators.required],
       }),
       this.fb.group({
         ine: [null, Validators.required],
@@ -103,7 +103,7 @@ export class InscriptionFormComponent {
   //   map((value:any) => (value != null ? this.municipios[value] : []))
   // );
 
-  isEditable: boolean = false;
+  isEditable: boolean = true;
   hasUnitNumber = false;
   base64textString: BehaviorSubject<string> = new BehaviorSubject('');
   imageSource1: BehaviorSubject<any> = new BehaviorSubject('');
