@@ -70,6 +70,25 @@ export class InscriptionFormComponent {
         _11genero: [null, Validators.required],
       }),
       this.fb.group({
+        email: [null, Validators.required],
+        telefono: [null, Validators.required],
+        // canEmail: [null, Validators.required ],
+        // canCall: [null, Validators.required],
+        // canSMS: [null, Validators.required],
+        // canWA: [null, Validators.required],
+        horario: [null, Validators.required],
+        referencia: [null, Validators.required],
+        emer_name: [null, Validators.required],
+        emer_relation: [null, Validators.required],
+        emer_telefono: [null, Validators.required],
+        ss_name: [null, Validators.required],
+        nss: [null, Validators.required],
+        alergias: [null, Validators.required],
+        padecimientos: [null, Validators.required],
+        medicamentos: [null, Validators.required],
+        sangre: [null, Validators.required],
+      }),
+      this.fb.group({
         ine: [null, Validators.required],
       }),
       this.fb.group({
@@ -116,7 +135,7 @@ export class InscriptionFormComponent {
       case 'ine':
         console.log('control for '+this.catfile)
         this.formArray
-          ?.get([2])!
+          ?.get([3])!
           .patchValue({ine:imageOnData});
         this.imageSource1.next(
           this.sanitizer.bypassSecurityTrustResourceUrl(
@@ -127,7 +146,7 @@ export class InscriptionFormComponent {
       case 'recipment':
         console.log('control for '+this.catfile)
         this.formArray
-          ?.get([3])!
+          ?.get([4])!
           .patchValue({recipment:`${imageOnData}`});
         this.imageSource2.next(
           this.sanitizer.bypassSecurityTrustResourceUrl(
@@ -138,7 +157,7 @@ export class InscriptionFormComponent {
       case 'photo':
         console.log('control for '+this.catfile)
         this.formArray
-          ?.get([4])!
+          ?.get([5])!
           .patchValue({photo:`${imageOnData}`});
         this.imageSource3.next(
           this.sanitizer.bypassSecurityTrustResourceUrl(
