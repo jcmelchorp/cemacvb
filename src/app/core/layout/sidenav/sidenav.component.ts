@@ -50,10 +50,8 @@ export class SidenavComponent {
   routes:Menu=[ 
     { title: 'Inicio', link:'/', icon: 'home' },
     { title: 'Inscripciones', link: '/inscription', icon: 'person_add' },
-    { title: 'Registrar cuenta', link:'/auth/register', icon: 'badge' },  
-    { title: 'Iniciar Sesión', link:'/login', icon: 'login' },  
-    { title: 'Preguntas', link:'/faq', icon: 'question_mark' },
     { title: 'Nosotros', link:'/about', icon: 'about' },
+    { title: 'Preguntas', link:'/faq', icon: 'question_mark' },
 
   ];
   

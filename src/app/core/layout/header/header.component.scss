@@ -1,4 +1,7 @@
-
+.rounded-circle {
+  border-radius: 50%;
+  scale: 1.6;
+}
 
   .mat-toolbar {
     min-height: 55px !important;
@@ -9,4 +12,5 @@
   a:hover {
     color: white;
   }
+
 

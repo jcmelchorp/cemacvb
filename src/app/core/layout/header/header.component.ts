@@ -18,6 +18,7 @@ import { signOut } from "../../store/actions/auth.actions";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatListModule } from "@angular/material/list";
+import { UserCardComponent } from "../../auth/user-card/user-card.component";
 
 
 @Component({
@@ -25,7 +26,20 @@ import { MatListModule } from "@angular/material/list";
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss',
     standalone: true,
-    imports: [NgIf,AsyncPipe,RouterLink,MatListModule, MatExpansionModule,MatMenuModule, MatIconModule, MatToolbarModule, MatButtonModule, MatTooltipModule, AsyncPipe, FlexLayoutModule],
+    imports: [
+      NgIf,
+      AsyncPipe,
+      RouterLink,
+      FlexLayoutModule,
+      MatListModule, 
+      MatExpansionModule,
+      MatMenuModule,
+       MatIconModule, 
+       MatToolbarModule, 
+       MatButtonModule, 
+       MatTooltipModule, 
+       UserCardComponent,
+      ],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 

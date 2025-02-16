@@ -1,65 +1,75 @@
 <mat-toolbar>
   <mat-toolbar-row class="elevation-card" fxLayoutAlign="space-between center">
-    <div fxLayout="row" fxLayoutAlign="space-evenly end" fxLayoutGap="5px">
-      <button  type="button" aria-label="mostrar menu" mat-icon-button
-      (click)="toggleSidenavLeft($event)">
-      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-    </button>
-      <!-- <a routerLink="/"><img src="/assets/images/logo.png" height="50px" /></a> -->
-      <!-- <div class="app-name">RDS Spelling Bee</div>  -->
-    </div> 
-      <div fxLayout="row" fxLayoutAlign="space-evenly end" fxLayoutGap="20px">
-       <!-- @if (isOnline) {
-        <button mat-icon-button (click)="logOut()">
-          <mat-icon class="rds-icon" matTooltip="Cerrar sesión">logout</mat-icon>Cerrar sesión
-         </button>
-       } @else {
-        <button mat-icon-button [routerLink]="['/','auth/login']" >
-          <mat-icon class="rds-icon" matTooltip="Iniciar sesión">login</mat-icon>
-        </button>
-       } -->
-        <button type="button" mat-icon-button (click)="toggleDarkTheme(isDarkTheme)">
-       <mat-icon class="rds-icon"  [matTooltip]="(isDarkTheme$|async)?'Modo oscuro':'Modo claro'"  aria-label="Alternar tema">{{(isDarkTheme$|async)?'nightlight':'light_mode'}}</mat-icon>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <button type="button" aria-label="mostrar menu" mat-icon-button (click)="toggleSidenavLeft($event)">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <!-- <span style="font-size:50%">{{ (isDarkTheme$|async)?'on':'off' }}</span> -->
-      <!-- <button > -->
-        <button type="button" mat-icon-button onclick="var el = document.querySelector('body'); el.requestFullscreen();">
-          <mat-icon class="rds-icon" matTooltip="Pantalla completa">fullscreen</mat-icon> 
-        </button>
-       @if (isOnline) {
-        <button  mat-icon-button [matMenuTriggerFor]="userMenu">
-          <img class="img-fluid rounded-circle" src="{{user.photoUrl?user.photoUrl:user.authPhotoUrl}}" />
-        </button>
+      <button type="button" aria-label="Inicio" mat-icon-button [routerLink]="['/']">
+        <img class="rounded-circle" src="assets/images/logo.png" />
+      </button>
+      @if (!isOnline) {
+      <button type="button" aria-label="Quiénes somos" mat-flat-button [routerLink]="['/about']">
+        Acerca de...
+      </button>
+      <button type="button" aria-label="Preguntas frecuentes" mat-flat-button [routerLink]="['/faq']">
+        Preguntas
+      </button>
+      <button type="button" aria-label="inscripción" mat-flat-button [routerLink]="['/inscription']">
+        Inscribete
+      </button>
       }
-      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px">
+      @if (isOnline) {
+      <button type="button" mat-icon-button (click)="toggleDarkTheme(isDarkTheme)">
+        <mat-icon class="rds-icon" [matTooltip]="(isDarkTheme$|async)?'Modo oscuro':'Modo claro'"
+          aria-label="Alternar tema">{{(isDarkTheme$|async)?'nightlight':'light_mode'}}</mat-icon>
+      </button>
+      <button type="button" mat-icon-button onclick="var el = document.querySelector('body'); el.requestFullscreen();">
+        <mat-icon class="rds-icon" matTooltip="Pantalla completa">fullscreen</mat-icon>
+      </button>
+      <button type="button" mat-icon-button [matMenuTriggerFor]="userMenu">
+        <img class="rounded-circle" src="{{user.photoUrl?user.photoUrl:'assets/images/default_user.jpeg'}}" />
+      </button>
+      } @else {
+      <button type="button" mat-icon-button matTooltip="Iniciar sesión" [routerLink]="['/login']">
+        <mat-icon class="rds-icon">login</mat-icon>
+      </button>
+      }
+    </div>
   </mat-toolbar-row>
-  </mat-toolbar>
-  <ng-content #progressBar></ng-content>
-  <mat-menu #userMenu="matMenu" fxLayoutAlign="end">
-    <ng-template matMenuContent>
-      <div mat-list-item *ngIf="isOnline && user" [routerLink]="['p']">
-        <!-- <app-user-card [isOnline]="isOnline" [isAdmin]="isAdmin" [user]="user"> </app-user-card> -->
-      </div>
-      <div mat-menu-item *ngIf="isOnline" [routerLink]="['config']">
-        <!-- <fa-icon matListIcon [icon]="faSlidersH" size="lg"></fa-icon> -->
-        <span>&nbsp;Configuración</span>
-      </div>
-      <mat-accordion>
-        <mat-expansion-panel [class.mat-elevation-z0]="true" (opened)="panelOpenState = true"
-          (closed)="canLogout = true;panelOpenState = false" (click)="$event.stopPropagation();"
-          hideToggle="panelOpenState">
-          <mat-expansion-panel-header>
+</mat-toolbar>
+<ng-content #progressBar></ng-content>
+<mat-menu #userMenu="matMenu" fxLayoutAlign="end">
+  <ng-template matMenuContent>
+    <div mat-menu-item *ngIf="isOnline && user" [routerLink]="['p']">
+      <app-user-card [isOnline]="isOnline" [isAdmin]="isAdmin" [user]="user"> </app-user-card>
+    </div>
+    <div mat-menu-item *ngIf="isOnline" [routerLink]="['config']">
+      <mat-icon matListItemIcon>settings</mat-icon>
+      <span matListItemTitle>&nbsp;Configuración</span>
+    </div>
+    <div mat-menu-item *ngIf="isOnline" [routerLink]="['/auth/register']">
+      <mat-icon matListItemIcon>badges</mat-icon>
+      <span matListItemTitle>&nbsp;Registrar Usuario</span>
+    </div>
+    <mat-accordion>
+      <mat-expansion-panel [class.mat-elevation-z0]="true" (opened)="panelOpenState = true"
+        (closed)="canLogout = true;panelOpenState = false" (click)="$event.stopPropagation();"
+        hideToggle="panelOpenState">
+        <mat-expansion-panel-header>
+          <div mat-menu-item>
             <mat-icon matListIcon>logout</mat-icon>
-            <span>Cerrar sesión</span>
-          </mat-expansion-panel-header>
-          <mat-nav-list role="list" dense>
-            <mat-list-item class="right text-danger" (click)="onLogout(user.uid!)" role="listitem">
-              <mat-icon>directions_run</mat-icon><span>Salir</span>
-            </mat-list-item>
-          </mat-nav-list>
-        </mat-expansion-panel>
-      </mat-accordion>
-      <!-- <mat-accordion displayMode="flat">
+            <span>&nbsp;Cerrar sesión</span>
+          </div>
+        </mat-expansion-panel-header>
+        <div mat-menu-item (click)="onLogout(user.uid!)">
+          <mat-icon matListIcon style="color:darkred">directions_run</mat-icon>
+          <span style="color:darkred">&nbsp;Salir</span>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <!-- <mat-accordion displayMode="flat">
         <mat-expansion-panel>
           <mat-expansion-panel-header (click)="$event.stopPropagation();">
             <mat-panel-title>
@@ -73,33 +83,33 @@
           </mat-list>
         </mat-expansion-panel>
       </mat-accordion> -->
-    </ng-template>
-  </mat-menu>
-  <mat-menu #escuela="matMenu">
-    <ng-template matMenuContent>
-      <div mat-menu-item [routerLink]="['i']" routerLinkActive="active">Portada</div>
-      <div mat-menu-item [routerLink]="['i','about']" routerLinkActive="active">Quiénes somos</div>
-      <div mat-menu-item [matMenuTriggerFor]="oferta">Oferta educativa</div>
-      <div mat-menu-item [routerLink]="['i','location']" routerLinkActive="active">Ubicación y contacto</div>
-    </ng-template>
-  </mat-menu>
-  <mat-menu #webapp="matMenu">
-    <ng-template matMenuContent>
-      <div mat-menu-item [matMenuTriggerFor]="conduct">Código de conducta</div>
-      <div mat-menu-item [routerLink]="['i','privacy-policy']" routerLinkActive="active">Políticas de privacidad</div>
-      <div mat-menu-item [routerLink]="['i','license']" routerLinkActive="active">Licencia</div>
-    </ng-template>
-  </mat-menu>
-  <mat-menu #conduct="matMenu">
-    <ng-template matMenuContent>
-      <div mat-menu-item [routerLink]="['i','code-conduct-school']" routerLinkActive="active">Para espacios académicos
-      </div>
-      <div mat-menu-item [routerLink]="['i','code-conduct']" routerLinkActive="active">Para este sitio</div>
-    </ng-template>
-  </mat-menu>
-  <mat-menu #oferta="matMenu">
-    <ng-template matMenuContent>
-      <div mat-menu-item [routerLink]="['i','remote-learning']" routerLinkActive="active">Educación a distancia</div>
-      <div mat-menu-item [routerLink]="['i','reopenning']" routerLinkActive="active">Reapertura</div>
-    </ng-template>
-  </mat-menu>
+  </ng-template>
+</mat-menu>
+<mat-menu #escuela="matMenu">
+  <ng-template matMenuContent>
+    <div mat-menu-item [routerLink]="['i']" routerLinkActive="active">Portada</div>
+    <div mat-menu-item [routerLink]="['i','about']" routerLinkActive="active">Quiénes somos</div>
+    <div mat-menu-item [matMenuTriggerFor]="oferta">Oferta educativa</div>
+    <div mat-menu-item [routerLink]="['i','location']" routerLinkActive="active">Ubicación y contacto</div>
+  </ng-template>
+</mat-menu>
+<mat-menu #webapp="matMenu">
+  <ng-template matMenuContent>
+    <div mat-menu-item [matMenuTriggerFor]="conduct">Código de conducta</div>
+    <div mat-menu-item [routerLink]="['i','privacy-policy']" routerLinkActive="active">Políticas de privacidad</div>
+    <div mat-menu-item [routerLink]="['i','license']" routerLinkActive="active">Licencia</div>
+  </ng-template>
+</mat-menu>
+<mat-menu #conduct="matMenu">
+  <ng-template matMenuContent>
+    <div mat-menu-item [routerLink]="['i','code-conduct-school']" routerLinkActive="active">Para espacios académicos
+    </div>
+    <div mat-menu-item [routerLink]="['i','code-conduct']" routerLinkActive="active">Para este sitio</div>
+  </ng-template>
+</mat-menu>
+<mat-menu #oferta="matMenu">
+  <ng-template matMenuContent>
+    <div mat-menu-item [routerLink]="['i','remote-learning']" routerLinkActive="active">Educación a distancia</div>
+    <div mat-menu-item [routerLink]="['i','reopenning']" routerLinkActive="active">Reapertura</div>
+  </ng-template>
+</mat-menu>
