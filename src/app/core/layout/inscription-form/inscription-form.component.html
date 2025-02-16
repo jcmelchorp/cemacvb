@@ -51,8 +51,11 @@
               </mat-radio-group>
             </mat-card-content>
             <mat-card-actions>
-              <button mat-button matStepperNext
-                [disabled]="formArray?.get([0])!.invalid||formArray?.get([0])?.value['reqState']=='No tengo alguno de los requisitos.'">Siguiente</button>
+              <!-- <button mat-button matStepperNext
+                [disabled]="formArray?.get([0])!.invalid||formArray?.get([0])?.value['reqState']=='No tengo alguno de los requisitos.'"
+                >Siguiente</button> -->
+                <button mat-button matStepperNext
+                >Siguiente</button>
             </mat-card-actions>
           </mat-card>
         </ng-template>
@@ -147,7 +150,7 @@
         </ng-template>
         <!-- </form> -->
       </mat-step>
-      <mat-step formGroupName="2" [stepControl]="formArray?.get([2])!" [editable]="isEditable">
+      <mat-step formGroupName="2" [stepControl]="formArray?.get([2])!" [editable]="true">
         <ng-template matStepLabel>Contacto</ng-template>
         <ng-template matStepContent>
           <mat-card>
@@ -220,7 +223,9 @@
             <mat-card-actions>
               <button mat-button matStepperPrevious>Back</button>
               <!-- <button mat-button matStepperNext [disabled]="docsForm.invalid" type="submit">Enviar</button> -->
-              <button mat-button [disabled]="formArray?.get([2])!.invalid" matStepperNext>Siguiente</button>
+              <!-- <button mat-button [disabled]="formArray?.get([2])!.invalid" matStepperNext>Siguiente</button> -->
+              <button mat-button matStepperNext>Siguiente</button>
+
             </mat-card-actions>
           </mat-card>
           <!--  -->
@@ -228,7 +233,7 @@
           <!-- Información de emergencias -->
         </ng-template>
       </mat-step>
-      <mat-step formGroupName="3" [stepControl]="formArray?.get([3])!" [editable]="isEditable">
+      <mat-step formGroupName="3" [stepControl]="formArray?.get([3])!" [editable]="true">
         <ng-template matStepLabel>Documentos</ng-template>
         <ng-template matStepContent>
           <mat-card>
@@ -250,7 +255,9 @@
             <mat-card-actions>
               <button mat-button matStepperPrevious>Back</button>
               <!-- <button mat-button matStepperNext [disabled]="docsForm.invalid" type="submit">Enviar</button> -->
-              <button mat-button [disabled]="formArray?.get([3])!.invalid" matStepperNext>Siguiente</button>
+              <!-- <button mat-button [disabled]="formArray?.get([3])!.invalid" matStepperNext>Siguiente</button> -->
+              <button mat-button matStepperNext>Siguiente</button>
+
             </mat-card-actions>
           </mat-card>
           <!-- Información de contacto -->
@@ -258,7 +265,7 @@
           <!-- Información de emergencias -->
         </ng-template>
       </mat-step>
-      <mat-step formGroupName="4" [stepControl]="formArray?.get([4])!" [editable]="isEditable">
+      <mat-step formGroupName="4" [stepControl]="formArray?.get([4])!" [editable]="true">
         <ng-template matStepLabel>Documentos</ng-template>
         <ng-template matStepContent>
           <mat-card>
@@ -279,7 +286,9 @@
             <mat-card-actions>
               <button mat-button matStepperPrevious>Back</button>
               <!-- <button mat-button matStepperNext [disabled]="docsForm.invalid" type="submit">Enviar</button> -->
-              <button mat-button [disabled]="formArray?.get([4])!.invalid" matStepperNext>Siguiente</button>
+              <!-- <button mat-button [disabled]="formArray?.get([4])!.invalid" matStepperNext>Siguiente</button> -->
+              <button mat-button matStepperNext>Siguiente</button>
+
             </mat-card-actions>
           </mat-card>
           <!-- Información de contacto -->
@@ -287,7 +296,7 @@
           <!-- Información de emergencias -->
         </ng-template>
       </mat-step>
-      <mat-step formGroupName="5" [stepControl]="formArray?.get([5])!" [editable]="isEditable">
+      <mat-step formGroupName="5" [stepControl]="formArray?.get([5])!" [editable]="true">
         <ng-template matStepLabel>Documentos</ng-template>
         <ng-template matStepContent>
           <mat-card>
@@ -308,12 +317,14 @@
             <mat-card-actions>
               <button mat-button matStepperPrevious>Back</button>
               <!-- <button mat-button matStepperNext [disabled]="docsForm.invalid" type="submit">Enviar</button> -->
-              <button mat-button [disabled]="formArray?.get([5])!.invalid" matStepperNext>Siguiente</button>
+              <!-- <button mat-button [disabled]="formArray?.get([5])!.invalid" matStepperNext>Siguiente</button> -->
+              <button mat-button matStepperNext>Siguiente</button>
+
             </mat-card-actions>
           </mat-card>
         </ng-template>
       </mat-step>
-      <mat-step [editable]="isEditable">
+      <mat-step [editable]="true">
         <ng-template matStepLabel>Done</ng-template>
         <mat-card>
           <mat-card-header>
@@ -322,7 +333,6 @@
               selección</mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
-            <p></p>
             @for (i of [ 0,1,2,3,4,5 ]; track $index) {
             @if (i>2) {
             {{(formArray?.get([i])!.value|keyvalue)[0].key}}:
@@ -336,8 +346,14 @@
           </mat-card-content>
           <mat-card-actions>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button [disabled]="formGroup.invalid" type="submit">Enviar</button>
-            <button mat-button (click)="stepper.reset()">Reset</button> </mat-card-actions>
+            <button mat-stroked-button color="primary" type="submit"
+            [disabled]="formGroup.invalid">
+            <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-around center">
+              <span>Enviar datos</span>
+              <mat-spinner *ngIf="creating$|async" strokeWidth="3" [diameter]="25" [color]="'primary'"></mat-spinner>
+            </div>
+          </button>
+            <button mat-button (click)="formGroup.reset()">Reset</button> </mat-card-actions>
         </mat-card>
       </mat-step>
     </mat-stepper>
