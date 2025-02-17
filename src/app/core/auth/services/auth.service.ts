@@ -1,17 +1,20 @@
 import { inject, Injectable } from '@angular/core';
 import {
   Auth,
+  AuthCredential,
   authState,
   createUserWithEmailAndPassword,
+  getAuth,
   getRedirectResult,
   GoogleAuthProvider,
   idToken,
+  linkWithCredential,
   sendEmailVerification,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signInWithRedirect,
   user,
-  User,
   UserCredential,
 } from '@angular/fire/auth';
 import {
@@ -21,8 +24,8 @@ import {
   setDoc,
   updateDoc,
 } from '@angular/fire/firestore';
-import { User as AuthUser } from '../../auth/models/user.model';
-import { from, Observable, of } from 'rxjs';
+import { User as AuthUser } from '../../users/models/user.model';
+import { from, Observable, of, switchMap } from 'rxjs';
 import { firebaseSerialize } from '../../models/firebase.model';
 
 export interface Credential {
@@ -33,31 +36,37 @@ export interface Credential {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private _firestore = inject(Firestore);
+
   private _auth = inject(Auth);
   authState$ = authState(this._auth); // 👈👈👈
-  user$ = user(this._auth); // 👈👈👈
+  user$ = user(this._auth);
   idToken$ = idToken(this._auth); // 👈👈👈
 
- async byGoogle(): Promise<UserCredential> {
+   byGoogle() {
     // you can simply change the Google for another provider here
-      const provider = new GoogleAuthProvider(); // Use 'GoogleAuthProvider' directly
-      provider.setCustomParameters({ prompt: 'select_account' });
-      return signInWithPopup(this._auth, provider)
- }
+    const provider = new GoogleAuthProvider(); // Use 'GoogleAuthProvider' directly
+    provider.addScope('profile');
+    provider.addScope('email');
+    provider.setCustomParameters({ prompt: 'select_account' });
+    return from(signInWithPopup(this._auth, provider)).pipe(switchMap(u=>this.user$));
+  }
 
-  signup(email: string, password: string): Promise<AuthUser> {
-    return createUserWithEmailAndPassword(
+  signup(email: string, password: string) {
+    createUserWithEmailAndPassword(
       this._auth,
       email.trim(),
       password.trim()
-    ).then((auth) => this._setUserData(auth));
+    ).then((user) => this._setUserData(user));
+    return this.user$;
   }
 
-  login(credential: Credential): Promise<UserCredential> {
-    return signInWithEmailAndPassword(
+  login(credential: Credential) {
+    signInWithEmailAndPassword(
       this._auth,
       credential.email.trim(),
-      credential.password.trim());
+      credential.password.trim()
+    );
+    return this.user$;
   }
 
   logOut(id?: string): Promise<void> {
@@ -75,7 +84,7 @@ export class AuthService {
   }
 
   saveUser(user: AuthUser) {
-    const key = user.id;
+    // const key = user.id;
     /*  if (environment.useAuthEmulator) {
        const rtdbRef = ref(this.database, `${this.collection}/${key}`);
        return from(update(rtdbRef, user))
@@ -112,10 +121,10 @@ export class AuthService {
   private _setUserData(auth: UserCredential): Promise<AuthUser> {
     const user: AuthUser = {
       uid: auth.user.uid!,
-      
       id: auth.user.providerData[0].uid,
       photoUrl: auth.user.providerData[0].photoURL!,
-      name: { familyName:auth.user.providerData[1].displayName!, fullName: auth.user.providerData[0].displayName!},
+      displayName: auth.user.providerData[0].displayName!,
+      // name: { familyName:auth.user.providerData[1].displayName!, fullName: auth.user.providerData[0].displayName!},
       primaryEmail: auth.user.email!,
       isVerified: auth.user.emailVerified,
       // custom ones

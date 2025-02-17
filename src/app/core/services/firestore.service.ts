@@ -25,14 +25,15 @@ export abstract class FireStoreService<T extends { id?: string }> {
     return from(colectSnap)
   }
 
-   async getById(id: string) {
+   getById(id: string) {
     
     // const docQuery= query(collection(this.firestore.firestore,this.collectionName,id), where("id","==",id))
-    const docRef = doc(this.firestore,this.collectionName,id);
-    const docSnap = await getDoc(docRef);
+    const colectRef = this.collection()
+    const docRef = doc(colectRef,id);
+    const docSnap = getDoc(docRef).then(res=>res.data() as T);
+
     // if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-      return of(docSnap.data() as T)
+      return from(docSnap)
     // }
     //  else {
     //   // docSnap.data() will be undefined in this case

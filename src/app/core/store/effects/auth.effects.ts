@@ -6,8 +6,8 @@ import * as authAction from '../actions/auth.actions';
 
 import { Action, INIT } from '@ngrx/store';
 import { Auth, authState, GoogleAuthProvider, signInWithPopup, User as FireUser } from '@angular/fire/auth';
-import { AuthService } from '../../auth/services/auth.service';
-import { User } from '../../auth/models/user.model';
+import { AuthService, Credential } from '../../auth/services/auth.service';
+import { User } from '../../users/models/user.model';
 @Injectable()
 export class AuthEffects implements OnInitEffects {
   constructor(
@@ -57,27 +57,26 @@ export class AuthEffects implements OnInitEffects {
     )
   );
 
-  signIn$ = createEffect(() =>
+  signInByGoogle$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(authAction.signIn),
+      ofType(authAction.signInByGoogle),
       switchMap(() =>
-        //from(signInWithPopup(this.auth, new GoogleAuthProvider())).pipe(
-          from(this.authService.byGoogle()).pipe(
+          this.authService.byGoogle().pipe(
           map((res: any) => {
             //console.log(res)
             return {
-              id: res.user.providerData[0].uid,
-              primaryEmail: res.user.email,
-              photoUrl: res.user.providerData[0].photoURL,
-              authPhotoUrl: res.user.photoURL,
-              displayName: res.user.displayName,
-              isVerified: res.user.emailVerified,
-              creationTime: res.user.metadata.creationTime,
-              lastLoginTime: res.user.metadata.lastSignInTime,
-              uid: res.user.uid,
+              id: res!.providerData[0].uid,
+              primaryEmail: res!.email,
+              photoUrl: res!.providerData[0].photoURL,
+              authPhotoUrl: res!.photoURL,
+              displayName: res!.displayName,
+              isVerified: res!.emailVerified,
+              creationTime: res!.metadata.creationTime,
+              lastLoginTime: res!.metadata.lastSignInTime,
+              uid: res!.uid,
             };
           }),
-          switchMap((user) => {
+          switchMap((user:any) => {
             return [
               authAction.saveUser({ user }),
               authAction.signInSuccess({ user })
@@ -89,6 +88,67 @@ export class AuthEffects implements OnInitEffects {
     )
   );
 
+  signInByEmail$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(authAction.signInByEmail),
+      switchMap(c =>
+          this.authService.login(c.credential).pipe(
+          map((res: any) => {
+            // console.log(res)
+            return {
+              id: res!.providerData[0].uid,
+              primaryEmail: res!.email,
+              photoUrl: res!.providerData[0].photoURL,
+              authPhotoUrl: res!.photoURL,
+              displayName: res!.displayName,
+              isVerified: res!.emailVerified,
+              creationTime: res!.metadata.creationTime,
+              lastLoginTime: res!.metadata.lastSignInTime,
+              uid: res!.uid,
+            };
+          }),
+          switchMap((user:any) => {
+            return [
+              authAction.saveUser({user}),
+              authAction.signInSuccess({ user })
+            ];
+          }),
+          catchError((error) => of(authAction.notAuthenticated({ error })))
+        )
+      )
+    )
+  );
+
+  signUpByEmail$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(authAction.signUpByEmail),
+      switchMap(c =>
+          this.authService.signup(c.credential.email,c.credential.password).pipe(
+          map((res: any) => {
+            console.log(res)
+            return {
+              id: res!.providerData[0].uid,
+              primaryEmail: res!.email,
+              photoUrl: res!.providerData[0].photoURL,
+              authPhotoUrl: res!.photoURL,
+              displayName: res!.displayName,
+              isVerified: res!.emailVerified,
+              creationTime: res!.metadata.creationTime,
+              lastLoginTime: res!.metadata.lastSignInTime,
+              uid: res!.uid,
+            };
+          }),
+          switchMap((user:any) => {
+            return [
+              authAction.saveUser({ user }),
+              authAction.signInSuccess({ user })
+            ];
+          }),
+          catchError((error) => of(authAction.notAuthenticated({ error })))
+        )
+      )
+    )
+  );
   signInSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(authAction.signInSuccess),

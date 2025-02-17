@@ -30,3 +30,8 @@ export interface Inscription {
     recipment?:string;
     photo?:string;
 }
+
+export const entitySelectId = 'id';
+export const entityCollectionName = 'Inscripcion';
+export const pluralizedEntityName = 'inscripciones';
+export const entityCollectionEndPoint = pluralizedEntityName;

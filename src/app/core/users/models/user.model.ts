@@ -1,4 +1,7 @@
-
+export const entitySelectId = 'uid';
+export const entityCollectionName = 'User';
+export const pluralizedEntityName = 'users';
+export const entityCollectionEndPoint = pluralizedEntityName;
 export interface User {
   id?: string;
   uid?: string

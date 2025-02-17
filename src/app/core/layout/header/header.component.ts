@@ -13,7 +13,7 @@ import { FlexLayoutModule } from "ngx-flexible-layout";
 import { AuthService } from "../../auth/services/auth.service";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../store/states/app.state";
-import { User } from "../../auth/models/user.model";
+import { User } from "../../users/models/user.model";
 import { signOut } from "../../store/actions/auth.actions";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatMenuModule } from "@angular/material/menu";

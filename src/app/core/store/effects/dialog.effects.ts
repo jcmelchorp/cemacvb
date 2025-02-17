@@ -12,7 +12,7 @@ export class DialogEffects {
   hideDialog$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(fromAuthActions.signIn),
+        ofType(fromAuthActions.signInByGoogle,fromAuthActions.signInByEmail),
         tap(() => this.dialog.closeAll())
       ),
     { dispatch: false }

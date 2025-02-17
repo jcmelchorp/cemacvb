@@ -1,6 +1,6 @@
 <div class="my-container">
   <form [formGroup]="formGroup" novalidate (submit)="onSubmit()">
-    <mat-stepper linear #stepper formArrayName="formArray">
+    <mat-vertical-stepper #stepper formArrayName="formArray">
       <mat-step formGroupName="0" [stepControl]="formArray?.get([0])!" [editable]="isEditable">
         <ng-template matStepLabel>Información</ng-template>
         <ng-template matStepContent>
@@ -51,11 +51,10 @@
               </mat-radio-group>
             </mat-card-content>
             <mat-card-actions>
+              <button type="button" mat-button matStepperNext
+                [disabled]="formArray?.get([0])!.invalid||formArray?.get([0])?.value['reqState']=='No tengo alguno de los requisitos.'">Siguiente</button>
               <!-- <button mat-button matStepperNext
-                [disabled]="formArray?.get([0])!.invalid||formArray?.get([0])?.value['reqState']=='No tengo alguno de los requisitos.'"
                 >Siguiente</button> -->
-                <button mat-button matStepperNext
-                >Siguiente</button>
             </mat-card-actions>
           </mat-card>
         </ng-template>
@@ -143,8 +142,9 @@
               <mat-radio-button value="Mujer">Mujer</mat-radio-button>
             </mat-radio-group>
             <mat-card-actions>
-              <!-- <button mat-button matStepperNext [disabled]="formArray?.get([0])!.invalid" type="submit">Enviar</button> -->
-              <button mat-button matStepperNext>Siguiente</button>
+              <button mat-button matStepperNext [disabled]="formArray?.get([1])!.invalid"
+                type="button">Siguiente</button>
+              <!-- <button type="button" mat-button matStepperNext>Siguiente</button> -->
             </mat-card-actions>
           </mat-card>
         </ng-template>
@@ -161,70 +161,71 @@
                 Proporcionanos información para estar en contacto contigo.
               </mat-card-subtitle>
             </mat-card-header>
-              <mat-form-field>
-                <input matInput placeholder="Phone Number" formControlName="_13telefono">
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Email" type="email" formControlName="_12email">
-              </mat-form-field>
-              
-              <!-- <mat-label>Correo electrónico</mat-label>  -->
-              <!-- <mat-checkbox type="checkbox" formControlName="canEmail">Correo electrónico</mat-checkbox> -->
-              <!-- <mat-label>Llamada</mat-label>  -->
-              <!-- <mat-checkbox type="checkbox" formControlName="canCall">Llamada</mat-checkbox> -->
-              <!-- <mat-label>Mensajes de texto</mat-label>  -->
-              <!-- <mat-checkbox type="checkbox" formControlName="canSMS">Mensajes de texto</mat-checkbox> -->
-              <!-- <mat-label>Whats App</mat-label>  -->
-              <!-- <mat-checkbox type="checkbox" formControlName="canWA">Whats App</mat-checkbox> -->
-              <mat-form-field>
-                <mat-select  formControlName="_14horario">
-                  <mat-option [value]="''">Escoge un horario de contacto.</mat-option>
-                  <mat-option [value]="'Por la mañana, antes de las 9am'">Por la mañana, antes de las 9am</mat-option>
-                  <mat-option [value]="'Por la tarde, después de las 12:00 pm'">Por la tarde, después de las 12:00
-                    pm</mat-option>
-                  <mat-option [value]="'Por la tarde, después de las 6:00 pm'">Por la tarde, después de las 6:00
-                    pm</mat-option>
-                  <mat-option [value]="'Por la noche, antes de las 9pm'">Por la noche, antes de las 9pm</mat-option>
-                </mat-select>
-              </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Phone Number" formControlName="_13telefono">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Email" type="email" formControlName="_12email">
+            </mat-form-field>
 
-              <mat-form-field>
-                <input matInput placeholder="¿Cómo te enteraste del club?" formControlName="_15referencia">
-              </mat-form-field>
+            <!-- <mat-label>Correo electrónico</mat-label>  -->
+            <!-- <mat-checkbox type="checkbox" formControlName="canEmail">Correo electrónico</mat-checkbox> -->
+            <!-- <mat-label>Llamada</mat-label>  -->
+            <!-- <mat-checkbox type="checkbox" formControlName="canCall">Llamada</mat-checkbox> -->
+            <!-- <mat-label>Mensajes de texto</mat-label>  -->
+            <!-- <mat-checkbox type="checkbox" formControlName="canSMS">Mensajes de texto</mat-checkbox> -->
+            <!-- <mat-label>Whats App</mat-label>  -->
+            <!-- <mat-checkbox type="checkbox" formControlName="canWA">Whats App</mat-checkbox> -->
+            <mat-form-field>
+              <mat-select formControlName="_14horario">
+                <mat-option [value]="''">Escoge un horario de contacto.</mat-option>
+                <mat-option [value]="'Por la mañana, antes de las 9am'">Por la mañana, antes de las 9am</mat-option>
+                <mat-option [value]="'Por la tarde, después de las 12:00 pm'">Por la tarde, después de las 12:00
+                  pm</mat-option>
+                <mat-option [value]="'Por la tarde, después de las 6:00 pm'">Por la tarde, después de las 6:00
+                  pm</mat-option>
+                <mat-option [value]="'Por la noche, antes de las 9pm'">Por la noche, antes de las 9pm</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="¿Cómo te enteraste del club?" formControlName="_15referencia">
+            </mat-form-field>
 
 
-              <mat-form-field>
-                <input matInput placeholder="Nombre del Contacto de Emergencias" formControlName="_16emer_name">
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Telefono del Contacto de Emergencias" formControlName="_18emer_telefono">
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Parentesco del Contacto de Emergencias" formControlName="_17emer_relation">
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Nombre del Servicio de Salud" formControlName="_19ss_name">
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Número de Seguridad Social" formControlName="_20nss">
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Alergias" formControlName="_21alergias">
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Padecimientos" formControlName="_22padecimientos">
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Medicamentos" formControlName="_23medicamentos">
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Tipo de Sangre" formControlName="_24sangre">
-              </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Nombre del Contacto de Emergencias" formControlName="_16emer_name">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Telefono del Contacto de Emergencias" formControlName="_18emer_telefono">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Parentesco del Contacto de Emergencias" formControlName="_17emer_relation">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Nombre del Servicio de Salud" formControlName="_19ss_name">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Número de Seguridad Social" formControlName="_20nss">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Alergias" formControlName="_21alergias">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Padecimientos" formControlName="_22padecimientos">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Medicamentos" formControlName="_23medicamentos">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Tipo de Sangre" formControlName="_24sangre">
+            </mat-form-field>
             <mat-card-actions>
-              <button mat-button matStepperPrevious>Back</button>
+              <button type="button" mat-button matStepperPrevious>Back</button>
               <!-- <button mat-button matStepperNext [disabled]="docsForm.invalid" type="submit">Enviar</button> -->
-              <!-- <button mat-button [disabled]="formArray?.get([2])!.invalid" matStepperNext>Siguiente</button> -->
-              <button mat-button matStepperNext>Siguiente</button>
+              <button type="button" mat-button [disabled]="formArray?.get([2])!.invalid"
+                matStepperNext>Siguiente</button>
+              <!-- <button type="button" mat-button matStepperNext>Siguiente</button> -->
 
             </mat-card-actions>
           </mat-card>
@@ -253,10 +254,11 @@
 
             </mat-card-content>
             <mat-card-actions>
-              <button mat-button matStepperPrevious>Back</button>
+              <button type="button" mat-button matStepperPrevious>Back</button>
               <!-- <button mat-button matStepperNext [disabled]="docsForm.invalid" type="submit">Enviar</button> -->
-              <!-- <button mat-button [disabled]="formArray?.get([3])!.invalid" matStepperNext>Siguiente</button> -->
-              <button mat-button matStepperNext>Siguiente</button>
+              <button type="button" mat-button [disabled]="formArray?.get([3])!.invalid"
+                matStepperNext>Siguiente</button>
+              <!-- <button type="button"  mat-button matStepperNext>Siguiente</button> -->
 
             </mat-card-actions>
           </mat-card>
@@ -284,10 +286,11 @@
 
             </mat-card-content>
             <mat-card-actions>
-              <button mat-button matStepperPrevious>Back</button>
+              <button type="button" mat-button matStepperPrevious>Back</button>
               <!-- <button mat-button matStepperNext [disabled]="docsForm.invalid" type="submit">Enviar</button> -->
-              <!-- <button mat-button [disabled]="formArray?.get([4])!.invalid" matStepperNext>Siguiente</button> -->
-              <button mat-button matStepperNext>Siguiente</button>
+              <button mat-button type="button" [disabled]="formArray?.get([4])!.invalid"
+                matStepperNext>Siguiente</button>
+              <!-- <button type="button" mat-button matStepperNext>Siguiente</button> -->
 
             </mat-card-actions>
           </mat-card>
@@ -315,17 +318,18 @@
 
             </mat-card-content>
             <mat-card-actions>
-              <button mat-button matStepperPrevious>Back</button>
+              <button type="button" mat-button matStepperPrevious>Back</button>
               <!-- <button mat-button matStepperNext [disabled]="docsForm.invalid" type="submit">Enviar</button> -->
-              <!-- <button mat-button [disabled]="formArray?.get([5])!.invalid" matStepperNext>Siguiente</button> -->
-              <button mat-button matStepperNext>Siguiente</button>
+              <button type="button" mat-button [disabled]="formArray?.get([5])!.invalid"
+                matStepperNext>Siguiente</button>
+              <!-- <button type="button" mat-button matStepperNext>Siguiente</button> -->
 
             </mat-card-actions>
           </mat-card>
         </ng-template>
       </mat-step>
       <mat-step [editable]="true">
-        <ng-template matStepLabel>Done</ng-template>
+        <ng-template matStepLabel>Envio de Datos</ng-template>
         <mat-card>
           <mat-card-header>
             <mat-card-title>Por último...</mat-card-title>
@@ -333,7 +337,7 @@
               selección</mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
-            @for (i of [ 0,1,2,3,4,5 ]; track $index) {
+            <!-- @for (i of [ 0,1,2,3,4,5 ]; track $index) {
             @if (i>2) {
             {{(formArray?.get([i])!.value|keyvalue)[0].key}}:
             <img src="{{(formArray?.get([i])!.value|keyvalue)[0].value}}" height="150px">
@@ -342,20 +346,26 @@
             } @else{
             @for (item of (formArray?.get([i])!.value|keyvalue);track item) {<p>{{item.value}}</p>}
             }
+            } -->
+            @for (item of inscriptionData|keyvalue; track $index) {
+            @if (item.key=='ine'||item.key=='recipment'||item.key=='photo') {
+            <a target="_blank" [href]="item.value">{{item.key}}</a> <br>
+            } @else {
+            {{item.key}}:{{item.value}} <br>
+            }
             }
           </mat-card-content>
           <mat-card-actions>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-stroked-button color="primary" type="submit"
-            [disabled]="formGroup.invalid">
-            <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-around center">
-              <span>Enviar datos</span>
-              <mat-spinner *ngIf="creating$|async" strokeWidth="3" [diameter]="25" [color]="'primary'"></mat-spinner>
-            </div>
-          </button>
+            <button mat-stroked-button color="primary" type="submit" [disabled]="formGroup.invalid">
+              <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-around center">
+                <span>Enviar datos</span>
+                <mat-spinner *ngIf="creating$|async" strokeWidth="3" [diameter]="25" [color]="'primary'"></mat-spinner>
+              </div>
+            </button>
             <button mat-button (click)="formGroup.reset()">Reset</button> </mat-card-actions>
         </mat-card>
       </mat-step>
-    </mat-stepper>
+    </mat-vertical-stepper>
   </form>
 </div>

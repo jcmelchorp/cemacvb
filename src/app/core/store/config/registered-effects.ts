@@ -4,9 +4,13 @@ import { SpinnerEffects } from '../effects/spinner.effects';
 import { RouteEffects } from '../router/route.effects';
 import { AppEffects } from '../effects/app.effects';
 import { ToastrManagerService } from '../services/toastr-manager.service';
+import { AuthEffects } from '../effects/auth.effects';
+import { ConfigEffects } from '../effects/config.effects';
 
 export const registeredEffects = [
   AppEffects,
+  AuthEffects,
+  ConfigEffects,
   DialogEffects,
   RouteEffects,
   SnackEffects,
@@ -19,3 +23,5 @@ export * from '../effects/spinner.effects';
 export * from '../effects/snack.effects';
 export * from '../services/toastr-manager.service';
 export * from '../effects/app.effects';
+export * from '../effects/config.effects';
+export * from '../effects/auth.effects';

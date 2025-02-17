@@ -1,6 +1,6 @@
 import { Action, ActionReducer, ActionReducerMap, INIT, MetaReducer } from "@ngrx/store";
-import { AuthenticationState, authFeatureKey, authReducer } from "../reducers/auth.reducer";
-import { configFeatureKey, configReducer, ConfigState }  from '../reducers/config.reducer';
+import * as fromAuth from "../reducers/auth.reducer";
+import * as fromConfig  from '../reducers/config.reducer';
 import * as authActions from '../actions/auth.actions';
 
 import { routerReducer, RouterState } from "@ngrx/router-store";
@@ -8,14 +8,14 @@ import { environment } from "../../../../environments/environment";
 import { routerKey } from "../router";
 
 export interface AppState {
-    [authFeatureKey]: AuthenticationState;
+    [fromAuth.authFeatureKey]: fromAuth.AuthenticationState;
     [routerKey]: RouterState;
-    [configFeatureKey]: ConfigState
+    [fromConfig.configFeatureKey]: fromConfig.ConfigState
   }
   export const reducers: ActionReducerMap<AppState> = {
-    [authFeatureKey]: authReducer,
+    [fromAuth.authFeatureKey]:fromAuth.authReducer,
     [routerKey]: routerReducer,
-    [configFeatureKey]: configReducer
+    [fromConfig.configFeatureKey]: fromConfig.configReducer
   };
   
   export const metaReducers: MetaReducer<AppState>[] = !environment.production

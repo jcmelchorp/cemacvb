@@ -34,6 +34,7 @@
     "@ngrx/entity": "^17.2.0",
     "@ngrx/router-store": "^17.2.0",
     "@ngrx/store": "^17.2.0",
+    "@ngrx/store-devtools": "^17.2.0",
     "angular-animations": "^0.11.0",
     "ngx-flexible-layout": "^17.0.4",
     "ngx-spinner": "^17.0.0",

@@ -15,7 +15,7 @@ import { Menu } from '../../models/menu.model';
 import { SidenavComponent } from '../sidenav/sidenav.component';
 import { Overlay, OverlayContainer } from '@angular/cdk/overlay';
 import { FlexLayoutModule } from 'ngx-flexible-layout';
-import { User } from '../../auth/models/user.model';
+import { User } from '../../users/models/user.model';
 import * as fromAuthSelectors from '../../store/selectors/auth.selectors';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/states/app.state';

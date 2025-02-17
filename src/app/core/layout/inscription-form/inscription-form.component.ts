@@ -37,6 +37,7 @@ import { Inscription } from '../../users/models/inscription.model';
   standalone: true,
   imports: [
     AsyncPipe,
+    JsonPipe,
     KeyValuePipe,
     NgIf,
     MatProgressSpinnerModule,
@@ -177,12 +178,9 @@ export class InscriptionFormComponent {
         break;
     }
   }
-  onSubmit(): void {
-    if (!this.formGroup.invalid) {
-    this.creating.next(true);
-    this.created.next(false);
-    console.log(this.formGroup.value);
-    this.users.add({
+
+  get inscriptionData():any {
+    return {
       reqState: this.formArray?.get([0])!.value['reqState'],
       sobrenombre: this.formArray?.get([1])!.value['_00sobrenombre'],
       nombres: this.formArray?.get([1])!.value['_01nombres'],
@@ -212,7 +210,15 @@ export class InscriptionFormComponent {
       ine: this.formArray?.get([3])!.value['ine'],
       recipment: this.formArray?.get([4])!.value['recipment'],
       photo: this.formArray?.get([5])!.value['photo'],
-    } as Inscription);
+    }
+  }
+
+  onSubmit(): void {
+    if (!this.formGroup.invalid) {
+    this.creating.next(true);
+    this.created.next(false);
+    console.log(this.formGroup.value);
+    this.users.add(this.inscriptionData);
     //alert('Thanks!');
   }
   }

@@ -19,7 +19,8 @@ export class SpinnerEffects {
     () =>
       this.actions$.pipe(
         ofType(
-          fromAuthActions.signIn,
+          fromAuthActions.signInByEmail,
+          fromAuthActions.signInByGoogle,
           fromAuthActions.signOut,
         ),
         tap(() => {

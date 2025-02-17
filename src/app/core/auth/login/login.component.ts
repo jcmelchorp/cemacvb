@@ -34,6 +34,7 @@ export class LoginComponent {
   errorMessage!: string | null;
 
   constructor(private store: Store<AppState>){}
+  
   loginForm: FormGroup<LogInForm> = this.formBuilder.group({
     email: this.formBuilder.control('', {
       validators: [Validators.required, Validators.email],
@@ -60,11 +61,11 @@ export class LoginComponent {
   }
 
   loginByGoogle() {
-    this.store.dispatch(fromAuthActions.signIn());
+    this.store.dispatch(fromAuthActions.signInByGoogle());
   }
 
 
-  submit() {
+  loginByEmail() {
     if (this.loginForm.invalid) return;
     const credential: Credential = {
       email: this.loginForm.value.email || '',
@@ -72,12 +73,7 @@ export class LoginComponent {
     };
 
     try {
-     let user= this.auth.login(credential);
-     console.log(user);
-      const snackBarRef = this.openSnackBar();
-      snackBarRef.afterDismissed().subscribe(() => {
-        this.router.navigateByUrl('/home');
-      });
+      this.store.dispatch(fromAuthActions.signInByEmail({credential}));
     } catch (error) {
       console.error(error);
     }

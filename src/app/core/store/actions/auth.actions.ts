@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from '../../auth/models/user.model';
+import { User } from '../../users/models/user.model';
+import { Credential } from '../../auth/services/auth.service';
 
 export const checkAdminRole = createAction(
   '[Auth Role] Check admin role',
@@ -22,7 +23,13 @@ export const saveUser = createAction(
   '[Auth Firebase] Save user to firebase',
   props<{ user: User }>()
 );
-export const signIn = createAction('[AccountUser] Google`s sign-in request');
+export const signInByEmail= createAction('[AccountUser] Email`s sign-in request',
+  props<{ credential: Credential }>()
+);
+export const signUpByEmail= createAction('[AccountUser] Email`s sign-up request',
+  props<{ credential: Credential }>()
+);
+export const signInByGoogle = createAction('[AccountUser] Google`s sign-in request');
 export const signInFail = createAction('[Auth SignIn] Google`s sign-in Fail');
 export const signInSuccess = createAction(
   '[Auth SignIn] Google`s sign-in Success',

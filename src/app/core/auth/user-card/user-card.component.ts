@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { User } from '../models/user.model';
+import { User } from '../../users/models/user.model';
 import { MatIconModule } from '@angular/material/icon';
 
 
