@@ -1,27 +1,79 @@
-# Cemacvb
+# CEMAC VB
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.10.
+CEMAC VB es una aplicación web diseñada como un sitio de información y una plataforma de gestión para el proceso de inscripción de nuevos socios del **CEMAC (Club de Exploraciones de México) Veracruz-Boca del Río A.C.**.
 
-## Development server
+## Descripción
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+La aplicación tiene como objetivo facilitar la inscripción de nuevos socios, proporcionando una interfaz intuitiva y eficiente para gestionar los datos de los miembros. Además, sirve como un portal informativo para los interesados en unirse al club.
 
-## Code scaffolding
+### Características principales:
+- **Gestión de inscripciones:** Registro y administración de nuevos socios.
+- **Autenticación segura:** Implementada con Firebase Authentication.
+- **Base de datos en tiempo real:** Utiliza Firestore para almacenar y sincronizar datos.
+- **Estado global:** Manejo del estado de la aplicación con NgRx.
+- **Interfaz moderna:** Construida con Angular 17 para una experiencia de usuario fluida y responsiva.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Tecnologías utilizadas
 
-## Build
+- **Angular 17:** Framework principal para el desarrollo de la interfaz de usuario.
+- **Firebase:**
+  - **Authentication:** Para la gestión de usuarios y sesiones.
+  - **Firestore:** Base de datos NoSQL para almacenamiento de datos.
+- **NgRx:** Para la gestión del estado global de la aplicación.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Implementación demo
 
-## Running unit tests
+Puedes explorar una implementación demo de la aplicación en el siguiente enlace:  
+[https://cemacvb.web.app](https://cemacvb.web.app)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Vista previa
 
-## Running end-to-end tests
+#### Página de inicio
+![Vista previa de la página de inicio](https://via.placeholder.com/800x400?text=Vista+de+Inicio)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+#### Formulario de inscripción
+![Vista previa del formulario de inscripción](https://via.placeholder.com/800x400?text=Formulario+de+Inscripción)
 
-## Further help
+#### Panel de administración
+![Vista previa del panel de administración](https://via.placeholder.com/800x400?text=Panel+de+Administración)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Instalación y configuración
+
+Sigue estos pasos para ejecutar el proyecto localmente:
+
+1. Clona este repositorio:
+   ```bash
+   git clone https://github.com/tu-usuario/cemacvb.git
+   cd cemacvb
+   ```
+
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+
+3. Configura Firebase:
+   - Crea un proyecto en [Firebase Console](https://console.firebase.google.com/).
+   - Habilita **Authentication** y configura Firestore.
+   - Descarga el archivo `firebaseConfig` y colócalo en el proyecto.
+
+4. Ejecuta la aplicación:
+   ```bash
+   ng serve
+   ```
+
+5. Accede a la aplicación en tu navegador:
+   ```
+   http://localhost:4200
+   ```
+
+## Contribuciones
+
+Las contribuciones son bienvenidas. Si deseas colaborar, por favor abre un issue o envía un pull request.
+
+## Licencia
+
+Este proyecto está licenciado bajo la [MIT License](LICENSE).
+
+---
+Desarrollado con ❤️ por el equipo de CEMAC VB.
